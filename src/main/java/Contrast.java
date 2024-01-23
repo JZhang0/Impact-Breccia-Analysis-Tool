@@ -1,3 +1,5 @@
+package src.main.java;
+
 import org.opencv.core.Mat;
 
 //Update the contrast of the image
