@@ -1,10 +1,12 @@
-package src.main.java;
+package src.main.java.GUI;
 
 import javax.swing.JFrame;
 
+import src.main.java.Settings;
+
 public class GUI extends JFrame
 {
-    GUI()
+    public GUI()
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(Settings.getDefaultWidth(), Settings.getDefaultHeight());

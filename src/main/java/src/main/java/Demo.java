@@ -4,6 +4,8 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 
+import src.main.java.GUI.*;
+
 public class Demo {
     public static void main(String[] args) {
         // Load the native OpenCV library
