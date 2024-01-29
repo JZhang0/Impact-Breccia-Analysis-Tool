@@ -1,4 +1,4 @@
-package src.main.java;
+package utils.Processing;
 
 import org.opencv.core.Mat;
 
@@ -19,7 +19,7 @@ class Contrast
 
     private Mat run(double alpha, int beta, Mat image)
     {
-        Mat newImage = Mat.zeros(image.size(), image.type());
+        Mat newImage = MatManager.createMatWithProperty(image);
 
         byte[] imageData = new byte[(int) (image.total() * image.channels())];
         image.get(0, 0, imageData);
