@@ -27,12 +27,18 @@ public class BlurFilter
 	// public static void main(String[] args) {
 	// 	nu.pattern.OpenCV.loadLocally();
 
-	// 	Mat sample = Imgcodecs.imread("sample\\2. JLT_Airfall Layer_238px=10mm_trimmed.tif");
+	// 	Mat sample, edges, dest;
 
-	// 	Mat newImage = MedianBlur(sample, 5);
+	// 	sample = Imgcodecs.imread("sample\\2. JLT_Lower Unit_240px=10mm_trimmed.tif");
 
-	// 	HighGui.imshow("New Image", newImage);
-	// 	HighGui.resizeWindow("New Image", 1200, 1000);
+	// 	edges = EdgeDetection.CannyEdgeDetection(sample, 50, 125, 3, true);
+
+	// 	dest = EdgeDetection.EdgeOverlay(sample, edges);
+
+	// 	HighGui.imshow("edges", edges);
+	// 	HighGui.resizeWindow("edges", 800, 600);
+	// 	HighGui.imshow("sample", dest);
+	// 	HighGui.resizeWindow("sample", 800, 600);
 	// 	HighGui.waitKey();
 
 	// 	System.exit(0);
