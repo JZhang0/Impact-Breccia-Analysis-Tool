@@ -7,9 +7,20 @@ import org.opencv.imgproc.Imgproc;
 
 import utils.File.FileIO;
 
+import java.awt.*;
 
-public class BlurFilter
+
+public class BlurFilter extends ImageFilter
 {
+	public static Mat adjustBlur(Mat image)
+	{
+		Mat new_image = GaussianBlur(image, new Size(5, 5), 5, 5);
+
+		export("Blur", new_image);
+
+		return new_image;
+	}
+
 	public static Mat GaussianBlur(Mat srcImage, Size ksize, double sigmaX, double sigmaY){
 		Mat destImage = MatManager.createMatWithProperty(srcImage);
 
@@ -26,7 +37,7 @@ public class BlurFilter
 		return destImage;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		nu.pattern.OpenCV.loadLocally();
 
 		Mat sample, edges, dest;
@@ -45,5 +56,5 @@ public class BlurFilter
 		HighGui.waitKey();
 
 		System.exit(0);
-	}
+	}*/
 }

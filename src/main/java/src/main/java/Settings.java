@@ -16,4 +16,14 @@ public class Settings //this is getting replaced with a File with these values s
 	{
 		return "0.0.1";
 	}
+
+	public static boolean getDoSequentialExports()
+	{
+		return true;
+	}
+
+	public static String getFilePath()
+	{
+		return "C:/Users/Nicolas/Downloads";
+	}
 }

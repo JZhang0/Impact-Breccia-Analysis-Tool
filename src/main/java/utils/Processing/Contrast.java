@@ -1,23 +1,31 @@
 package utils.Processing;
 
 import org.opencv.core.Mat;
+import src.main.java.Settings;
+import utils.File.FileIO;
+
+import java.io.File;
 
 //Update the contrast of the image
-class Contrast
+public class Contrast extends ImageFilter
 {
-    private byte saturate(double val)
+    private static byte saturate(double val)
     {
         int iVal = (int) Math.round(val);
         iVal = iVal > 255 ? 255 : (iVal < 0 ? 0 : iVal);
         return (byte) iVal;
     }
 
-    public Mat adjustContrast(Mat image)
+    public static Mat adjustContrast(Mat image)
     {
-        return run(2.0, 88, image);
+        Mat result = run(2.0, 88, image);
+
+        export("Contrast", result);
+
+        return result;
     }
 
-    private Mat run(double alpha, int beta, Mat image)
+    private static Mat run(double alpha, int beta, Mat image)
     {
         Mat newImage = MatManager.createMatWithProperty(image);
 

@@ -3,7 +3,17 @@ import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-public class EdgeDetection {
+public class EdgeDetection extends ImageFilter
+{
+
+	public static Mat adjustEdge(Mat image)
+	{
+		Mat new_image = EdgeDetection.CannyEdgeDetection(image, 250, 500, 3, true, new Scalar(255, 255, 255));
+
+		export("EdgeDetection", new_image);
+
+		return new_image;
+	}
 
     /**
 	 * Finds edges in an image using the Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking.
