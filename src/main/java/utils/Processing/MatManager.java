@@ -73,7 +73,6 @@ public class MatManager {
 	 * @param weight1 Weight of the first image elements.
 	 * @param srcImage2 Second input image of the same size and channel number as src1.
 	 * @param weight2 Weight of the second image elements.
-	 * @param gamma Scalar added to each sum.
 	 * @return Output image that has the same size and number of channels as the input images, and equals to srcImage1 * weight1 + srcImage2 ∗ weight2 + gamma.
 	 */
 	public static Mat overlayWeighted(Mat srcImage1, double weight1, Mat srcImage2, double weight2){
