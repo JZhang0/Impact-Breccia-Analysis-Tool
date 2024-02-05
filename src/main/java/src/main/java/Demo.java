@@ -8,6 +8,7 @@ import src.main.java.GUI.*;
 import utils.File.FileIO;
 import utils.Processing.BlurFilter;
 import utils.Processing.Contrast;
+import utils.Processing.EdgeDetection;
 
 public class Demo {
     public static void main(String[] args) {
@@ -18,7 +19,8 @@ public class Demo {
         Mat processed_image = original_image;
 
         processed_image = Contrast.adjustContrast(processed_image);
-        //processed_image = BlurFilter.adjustBlur(processed_image);
+        processed_image = BlurFilter.adjustBlur(processed_image);
+        //processed_image = EdgeDetection.adjustEdge(processed_image);
 
         HighGui.imshow("Old Image", original_image);
         HighGui.imshow("New Image", processed_image);
