@@ -5,6 +5,7 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 
 import src.main.java.GUI.*;
+import utils.File.ImageDragDropApp;
 
 public class Demo {
     public static void main(String[] args) {
@@ -16,6 +17,6 @@ public class Demo {
         HighGui.imshow("New Image", img);
         HighGui.waitKey();
         System.exit(0);*/
-        GUI gui = new GUI();
+        ImageDragDropApp.main(args);
     }
 }
