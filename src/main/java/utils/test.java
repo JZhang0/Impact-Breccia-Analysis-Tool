@@ -16,17 +16,17 @@ public class test {
 		Mat sample, edges, dest;
 
         sample = FileIO.readFile("sample\\Impact Rocks\\MI_CC_04 - Melt-Bearing Breccia\\MI_CC_04_trimmed_4800px=1inch.tif");
-        FileIO.saveFile("sample\\out\\1test.jpg", sample, "jpg", 100);
+        FileIO.saveFile("sample\\out\\1test.png", dest, "png", 9);
         dest = sample;
 
         MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, 5);
         dest = BackgroundRemoval.removeBackground(dest);
-        FileIO.saveFile("sample\\out\\2test_removeBackground.jpg", dest, "jpg", 100);
+        FileIO.saveFile("sample\\out\\2test_removeBackground.png", dest, "png", 9);
 
         // dest = Contrast.adjustContrast(dest, 1.56, 48, 5.0);
         dest = Contrast.autoContrast(dest);
         dest = Contrast.gammaCorrect(dest, 5.0);
-		FileIO.saveFile("sample\\out\\3test_removeBackground_contrast.jpg", dest, "jpg", 100);
+		FileIO.saveFile("sample\\out\\3test_removeBackground_contrast.png", dest, "png", 9);
 
         dest = MatManager.RGBtoGray(dest);
         FileIO.saveFile("sample\\out\\4test_removeBackground_contrast_gray.png", dest, "png", 9);
