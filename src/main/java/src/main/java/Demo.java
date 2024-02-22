@@ -5,7 +5,6 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 
 import src.main.java.GUI.*;
-import utils.File.ImageDragDropApp;
 
 public class Demo {
     public static void main(String[] args) {
