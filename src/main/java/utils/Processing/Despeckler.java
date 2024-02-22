@@ -1,22 +1,23 @@
 package utils.Processing;
 
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+public class Despeckler {
 
-public class BlurFilter
-{
-	public static Mat GaussianBlur(Mat srcImage, Size ksize){
+	public static Mat despeckle(Mat srcImage, int ksize){
 		Mat destImage = MatManager.createMatWithProperty(srcImage);
 
-		Imgproc.GaussianBlur(srcImage, destImage, ksize, 0.0, 0.0);
+		Imgproc.medianBlur(srcImage, destImage, ksize);
 
 		return destImage;
 	}
 
-	public static Mat MedianBlur(Mat srcImage, int ksize){
+	public static Mat despeckle(Mat srcImage, int width, int height){
 		Mat destImage = MatManager.createMatWithProperty(srcImage);
+
+		int ksize = 2 * (width / 2000 + height / 1000) + 1;
+        System.out.println("Despeckle ksize: " + ksize);
 
 		Imgproc.medianBlur(srcImage, destImage, ksize);
 
