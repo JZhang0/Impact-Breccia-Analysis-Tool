@@ -8,6 +8,7 @@ import src.main.java.GUI.*;
 import utils.File.FileIO;
 
 import java.awt.*;
+import utils.File.ImageDragDropApp;
 
 public class Demo {
     public static void main(String[] args) {
@@ -25,5 +26,7 @@ public class Demo {
         //HighGui.imshow("New Image", MainImage.getImageMat());
         //HighGui.waitKey();
         //System.exit(0);
+        //ImageDragDropApp.main(args);
+
     }
 }
