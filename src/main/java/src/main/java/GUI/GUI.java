@@ -3,11 +3,12 @@ package src.main.java.GUI;
 import javax.swing.*;
 
 import src.main.java.Settings;
+import utils.File.Hotkeys;
+import utils.File.ImageDropHandler;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GUI extends javax.swing.JFrame
 {
@@ -28,8 +29,11 @@ public class GUI extends javax.swing.JFrame
 
         //Add button panel and main panel to the frame
         frame.add(buttonPanel, BorderLayout.NORTH);
-        //frame.add(createLabelPanel(), BorderLayout.CENTER);
+        //frame.add(createLabelPanel(), BorderLayout.NORTH);
         frame.add(mainPanel, BorderLayout.CENTER);
+
+        //Add hotkey support
+        new Hotkeys();
 
         //Set application size
         if (Settings.LAUNCH_MAXIMIZED)
@@ -45,18 +49,18 @@ public class GUI extends javax.swing.JFrame
         JPanel topPanel = new JPanel();
         JButton[] buttons = new JButton[12];
 
-        buttons[0] = new ButtonTMP();
-        buttons[1] = new ButtonTMP();
-        buttons[2] = new RGBGUI(frame);
-        buttons[3] = new ButtonTMP();
+        buttons[0] = new ContrastGUI();
+        buttons[1] = new GaussGUI();
+        buttons[2] = new RGBGUI();
+        buttons[3] = new InvertGUI();
         buttons[4] = new ButtonTMP();
         buttons[5] = new ButtonTMP();
         buttons[6] = new ButtonTMP();
         buttons[7] = new ButtonTMP();
         buttons[8] = new ButtonTMP();
-        buttons[9] = new ButtonTMP();
-        buttons[10] = new ButtonTMP();
-        buttons[11] = new ButtonTMP();
+        buttons[9] = new UndoGUI();
+        buttons[10] = new RedoGUI();
+        buttons[11] = new SaveGUI();
 
         //Initialize the bar's layout
         topPanel.setLayout(new GridLayout(1, buttons.length));
@@ -114,6 +118,8 @@ public class GUI extends javax.swing.JFrame
         helloLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainPanel.add(helloLabel, BorderLayout.CENTER);
 
+        mainPanel.setTransferHandler(new ImageDropHandler());
+
         return mainPanel;
     }
 
@@ -140,5 +146,10 @@ public class GUI extends javax.swing.JFrame
         mainPanel.add(imageLabel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
+    }
+
+    public static JFrame getFrame()
+    {
+        return frame;
     }
 }

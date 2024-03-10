@@ -1,48 +1,41 @@
 package utils.Processing;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
+import src.main.java.GUI.MainImage;
+import utils.File.FileIO;
 
-//Update the contrast of the image
-class Contrast
+/*
+* This class defines the behaviour for updating the contrast of an image.
+* */
+public class Contrast
 {
-    private byte saturate(double val)
+    //The alpha value is the parameter by which we adjust the contrast
+    private static double alpha = 1.0;
+
+    //Adjust the contrast and return a copy of the modified image to be displayed
+    public static Mat adjustConstrast(double alpha_value)
     {
-        int iVal = (int) Math.round(val);
-        iVal = iVal > 255 ? 255 : (iVal < 0 ? 0 : iVal);
-        return (byte) iVal;
+        Mat new_image = new Mat();
+        Core.multiply(MainImage.getImageMat(), new Scalar(alpha_value, alpha_value, alpha_value), new_image);
+        alpha = alpha_value;
+
+        return new_image;
     }
 
-    public Mat adjustContrast(Mat image)
+    //Return the currently saved alpha value
+    public static double getAlpha()
     {
-        return run(2.0, 88, image);
+        return alpha;
     }
 
-    private Mat run(double alpha, int beta, Mat image)
+    //Save the image to the MainImage
+    public static void save()
     {
-        Mat newImage = MatManager.createMatWithProperty(image);
+        MainImage.setImage(adjustConstrast(alpha));
+        alpha = 1.0;
 
-        byte[] imageData = new byte[(int) (image.total() * image.channels())];
-        image.get(0, 0, imageData);
-        byte[] newImageData = new byte[(int) (newImage.total() * newImage.channels())];
-
-        for (int y = 0; y < image.rows(); y++)
-            for (int x = 0; x < image.cols(); x++)
-                for (int c = 0; c < image.channels(); c++)
-                {
-                    double pixelValue = imageData[(y * image.cols() + x) * image.channels() + c];
-
-                    if (pixelValue < 0)
-                        pixelValue = pixelValue + 256;
-
-                    newImageData[(y * image.cols() + x) * image.channels() + c] = saturate(alpha * pixelValue + beta);
-                }
-
-        newImage.put(0, 0, newImageData);
-
-        return newImage;
-        /*HighGui.imshow("Original Image", image);
-        HighGui.imshow("New Image", newImage);
-        HighGui.waitKey();
-        System.exit(0);*/
+        FileIO.export("Contrast");
     }
 }
