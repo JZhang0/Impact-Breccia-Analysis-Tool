@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class ButtonTMP extends JButton {
 	public ButtonTMP()
 	{
-		ImageIcon icon = new ImageIcon(FilterGUI.getFilepath(0));
+		ImageIcon icon = new ImageIcon(FilterGUI.getFilepath(7));
 		setIcon(icon);
 		addActionListener(new ActionListener() {
 			@Override

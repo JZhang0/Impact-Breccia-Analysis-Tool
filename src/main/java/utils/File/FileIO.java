@@ -1,11 +1,16 @@
 package utils.File;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.imgcodecs.Imgcodecs;
+import src.main.java.GUI.MainImage;
+import java.nio.file.Files;
 
 public class FileIO {
 
@@ -36,7 +41,8 @@ public class FileIO {
         imwriteFlags.put("tiff", Imgcodecs.IMWRITE_TIFF_COMPRESSION);
     }
 
-    public static Mat readFile(String filePath){
+    public static Mat readFile(String filePath)
+    {
         return Imgcodecs.imread(filePath);
     }
 
@@ -80,5 +86,41 @@ public class FileIO {
         MatOfInt params = new MatOfInt(imwriteFlags.get(fileExtension), compressionValue);
 
 		return Imgcodecs.imwrite(filePath, srcImage, params);
+    }
+
+    public static void export(String filter)
+    {
+        //Ensure that the filepath exists before progressing
+        File folder = new File(getFilepath());
+        if (!folder.exists())
+        {
+            folder.mkdirs();
+        }
+
+        String filename = MainImage.getFilename() + "_" + History.getVersion() + "_" + filter + ".tif";
+
+        //Save the file into the correct directory
+        saveFile(getFilepath() + filename, MainImage.getImageMat(), "tif", TIF_COMPRESSION_LZW);
+
+        //Increase the version history of this filter edit so we know what to roll back to on an undo
+        History.increaseVersion();
+        History.addFilename(filename);
+    }
+
+    //Delete an image file
+    public static void delete(String filename)
+    {
+        File file = new File(getFilepath() + filename);
+
+        if (file.exists())
+        {
+            file.delete();
+        }
+    }
+
+    //Get the entire filepath that is used to store this image's filter history
+    public static String getFilepath()
+    {
+        return "Exports\\" + MainImage.getFilename() + "_" + MainImage.getTimestamp() + "\\";
     }
 }

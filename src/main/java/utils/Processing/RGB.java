@@ -3,6 +3,7 @@ package utils.Processing;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import src.main.java.GUI.MainImage;
+import utils.File.FileIO;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class RGB
 		{
 			MainImage.setImage(split(channel));
 			updated = true;
+
+			FileIO.export("RGB");
 		}
 	}
 
