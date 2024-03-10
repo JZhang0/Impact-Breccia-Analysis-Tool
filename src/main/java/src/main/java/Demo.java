@@ -8,7 +8,6 @@ import src.main.java.GUI.*;
 import utils.File.FileIO;
 
 import java.awt.*;
-import utils.File.ImageDragDropApp;
 
 public class Demo {
     public static void main(String[] args) {

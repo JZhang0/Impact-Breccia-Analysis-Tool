@@ -1,7 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
-import utils.Processing.Gauss;
+import utils.Processing.Threshold;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -23,22 +23,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class GaussGUI extends JButton
+public class ThresholdGUI extends JButton
 {
 	//The amount that we are adjusting the contrast by
-	//This is equivalent to the kernel value saved in the Gauss class
-	private static int gauss_adjustment_value;
+	//This is equivalent to the thresh value saved in the Threshold class
+	private static int threshold_adjustment_value;
 
-	public GaussGUI()
+	public ThresholdGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(1)));
+		setIcon(new ImageIcon(FilterGUI.getFilepath(5)));
 		addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				if (MainImage.exists())
 				{
-					GaussGUI.launch();
+					ThresholdGUI.launch();
 				}
 			}
 		});
@@ -46,13 +45,12 @@ public class GaussGUI extends JButton
 
 	public static void launch()
 	{
-		JFrame frame = GUI.getFrame();
-		JDialog dialog = new JDialog(frame, "Apply Gaussian blur", true);
+		JDialog dialog = new JDialog(GUI.getFrame(), "Threshold adjustment", true);
 		dialog.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		//Slider
-		JSlider slider = new JSlider(Settings.GAUSS_MIN, Settings.GAUSS_MAX);
+		JSlider slider = new JSlider(Settings.THRESHOLD_MIN, Settings.THRESHOLD_MAX);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -76,19 +74,19 @@ public class GaussGUI extends JButton
 		dialog.add(button, constraints);
 
 		//Set defaults
-		text_field.setText(String.valueOf((Gauss.getKernel())));
-		slider.setValue((Gauss.getKernel()));
+		text_field.setText(String.valueOf(Threshold.getThresh()));
+		slider.setValue(Threshold.getThresh());
 
-		//Render the contrast with whatever alpha value is currently in memory
-		GUI.render(MainImage.matToByte(Gauss.addGauss(Gauss.getKernel())));
+		//Render the contrast with whatever thresh value is currently in memory
+		GUI.render(MainImage.matToByte(Threshold.adjustThreshold(Threshold.getThresh())));
 
 		//Updating the slider
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				gauss_adjustment_value = slider.getValue();
+				threshold_adjustment_value = slider.getValue();
 
-				text_field.setText(String.valueOf(gauss_adjustment_value));
+				text_field.setText(String.valueOf(threshold_adjustment_value));
 			}
 		});
 
@@ -111,10 +109,10 @@ public class GaussGUI extends JButton
 
 			//When the textfield changes to something valid, update the image rendered on the GUI
 			private void updateTextFieldValue() {
-				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.GAUSS_MIN && Integer.parseInt(text_field.getText()) <= Settings.GAUSS_MAX)
+				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.THRESHOLD_MIN && Integer.parseInt(text_field.getText()) <= Settings.THRESHOLD_MAX)
 				{
-					gauss_adjustment_value = Integer.parseInt(text_field.getText());
-					GUI.render(MainImage.matToByte(Gauss.addGauss(gauss_adjustment_value)));
+					threshold_adjustment_value = Integer.parseInt(text_field.getText());
+					GUI.render(MainImage.matToByte(Threshold.adjustThreshold(threshold_adjustment_value)));
 				}
 			}
 		});
@@ -124,7 +122,7 @@ public class GaussGUI extends JButton
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				Gauss.save();
+				Threshold.save();
 				dialog.dispose();
 			}
 		});

@@ -10,4 +10,11 @@ public class Settings //this is getting replaced with a File with these values s
 	public static double ZOOM_FACTOR = 1.1;
 
 	public static String[] SUPPORTED_FILE_FORMATS = new String[] {"avif", "jpg", "jpeg", "png", "tif", "tiff", "webp"};
+
+	public static int THRESHOLD_MIN = 0;
+	public static int THRESHOLD_MAX = 254;
+	public static int CONTRAST_MIN = 100;
+	public static int CONTRAST_MAX = 300;
+	public static int GAUSS_MIN = 1;
+	public static int GAUSS_MAX = 10;
 }

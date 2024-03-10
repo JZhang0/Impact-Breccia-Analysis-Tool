@@ -53,8 +53,8 @@ public class GUI extends javax.swing.JFrame
         buttons[1] = new GaussGUI();
         buttons[2] = new RGBGUI();
         buttons[3] = new InvertGUI();
-        buttons[4] = new ButtonTMP();
-        buttons[5] = new ButtonTMP();
+        buttons[4] = new ThresholdGUI();
+        buttons[5] = new SubBackgroundGUI();
         buttons[6] = new ButtonTMP();
         buttons[7] = new ButtonTMP();
         buttons[8] = new ButtonTMP();

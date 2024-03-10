@@ -21,6 +21,7 @@ public class RGBGUI extends JButton
 	public RGBGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(2)));
+
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)

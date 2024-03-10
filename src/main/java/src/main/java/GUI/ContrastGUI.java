@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import src.main.java.Settings;
 import utils.Processing.Contrast;
 
 import javax.swing.JFrame;
@@ -28,8 +29,6 @@ public class ContrastGUI extends JButton
 	//This is equivalent to the alpha value saved in the Contrast class
 	private static int contrast_adjustment_value;
 
-	private static int lower_bound = 100, upper_bound = 300;
-
 	public ContrastGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(0)));
@@ -51,7 +50,7 @@ public class ContrastGUI extends JButton
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		//Slider
-		JSlider slider = new JSlider(lower_bound, upper_bound);
+		JSlider slider = new JSlider(Settings.CONTRAST_MIN, Settings.CONTRAST_MAX);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -110,7 +109,7 @@ public class ContrastGUI extends JButton
 
 			//When the textfield changes to something valid, update the image rendered on the GUI
 			private void updateTextFieldValue() {
-				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= lower_bound && Integer.parseInt(text_field.getText()) <= upper_bound)
+				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.CONTRAST_MIN && Integer.parseInt(text_field.getText()) <= Settings.CONTRAST_MAX)
 				{
 					contrast_adjustment_value = Integer.parseInt(text_field.getText());
 					GUI.render(MainImage.matToByte(Contrast.adjustConstrast((double) contrast_adjustment_value / 100)));
