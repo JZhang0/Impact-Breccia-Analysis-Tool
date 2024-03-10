@@ -13,7 +13,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <opencv.version>4.9.0-0</opencv.version>
         <javafx.version>21.0.2</javafx.version>
-        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     </properties>
 
     <dependencies>
@@ -29,7 +28,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
-            <!-- <type>pom</type> -->
         </dependency>
     </dependencies>
 </project>
