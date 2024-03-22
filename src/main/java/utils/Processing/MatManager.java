@@ -6,6 +6,9 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class MatManager {
     
 	public static Mat createMat(){
@@ -123,5 +126,27 @@ public class MatManager {
 		Core.addWeighted(srcImage1, weight1, srcImage2, weight2, 1.0, destImage);
 
 		return destImage;
+	}
+
+	public static Image matToImage(Mat mat)
+	{
+		int width = mat.cols();
+		int height = mat.rows();
+		int channels = mat.channels();
+		byte[] data = new byte[width * height * channels];
+		mat.get(0, 0, data);
+
+		int[] pixels = new int[width * height];
+		int index = 0;
+		for (int i = 0; i < width * height * channels; i += channels) {
+			int blue = data[i] & 0xFF;
+			int green = channels > 1 ? data[i + 1] & 0xFF : 0;
+			int red = channels > 2 ? data[i + 2] & 0xFF : 0;
+			pixels[index++] = (red << 16) | (green << 8) | blue;
+		}
+
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		image.setRGB(0, 0, width, height, pixels, 0, width);
+		return image;
 	}
 }

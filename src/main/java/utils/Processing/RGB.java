@@ -23,7 +23,7 @@ public class RGB
 
 		channel = query_channel;
 
-		return channels.get(query_channel);
+		return MatManager.GraytoRGB(channels.get(query_channel));
 	}
 
 	//Save the current query_channel as the image for further processing

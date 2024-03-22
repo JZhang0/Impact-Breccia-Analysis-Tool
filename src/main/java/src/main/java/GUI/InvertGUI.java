@@ -18,16 +18,16 @@ public class InvertGUI extends JButton
 	public InvertGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(3)));
-		addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if (MainImage.exists())
-				{
-					InvertGUI.launch();
-				}
-			}
-		});
+		addActionListener(e -> act());
+	}
+
+	public static void act()
+	{
+		if (MainImage.exists() && GUI.canCreateGUI())
+		{
+			GUI.createGUI();
+			InvertGUI.launch();
+		}
 	}
 
 	private static void launch()
@@ -38,16 +38,14 @@ public class InvertGUI extends JButton
 		dialog.add(button);
 
 		//Render the inverted colours
-		GUI.render(MainImage.matToByte(Invert.invert()));
+		GUI.render(Invert.invert());
 
 		//Save
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				Invert.save();
-				dialog.dispose();
-			}
+		button.addActionListener(e ->
+		{
+			Invert.save();
+			GUI.destroyGUI();
+			dialog.dispose();
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
@@ -55,7 +53,8 @@ public class InvertGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				GUI.render(MainImage.matToByte(MainImage.getImageMat()));
+				GUI.render(MainImage.getImageMat());
+				GUI.destroyGUI();
 			}
 		});
 

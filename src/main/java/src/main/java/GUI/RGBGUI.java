@@ -26,12 +26,18 @@ public class RGBGUI extends JButton
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (MainImage.exists())
-				{
-					RGBGUI.launch();
-				}
+				act();
 			}
 		});
+	}
+
+	public static void act()
+	{
+		if (MainImage.exists() && GUI.canCreateGUI())
+		{
+			GUI.createGUI();
+			RGBGUI.launch();
+		}
 	}
 
 	public static void launch()
@@ -58,16 +64,13 @@ public class RGBGUI extends JButton
 			dialog.add(buttons[i]);
 
 			int finalI = i;
-			buttons[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					if (buttons[finalI].isSelected())
-						GUI.render(MainImage.matToByte(RGB.split(finalI)));
-					else
-						GUI.render(MainImage.matToByte(MainImage.getImageMat()));
+			buttons[i].addActionListener(e ->
+			{
+				if (buttons[finalI].isSelected())
+					GUI.render(RGB.split(finalI));
+				else
+					GUI.render(MainImage.getImageMat());
 
-				}
 			});
 		}
 
@@ -75,13 +78,11 @@ public class RGBGUI extends JButton
 		dialog.add(button4);
 
 		//Save
-		button4.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				RGB.save();
-				dialog.dispose();
-			}
+		button4.addActionListener(e ->
+		{
+			RGB.save();
+			GUI.destroyGUI();
+			dialog.dispose();
 		});
 
 		//Detect when the dialog closes and reset the channel preview if no channel has been saved
@@ -90,7 +91,8 @@ public class RGBGUI extends JButton
 			public void windowClosing(WindowEvent e)
 			{
 				RGB.resetChannel();
-				GUI.render(MainImage.matToByte(MainImage.getImageMat()));
+				GUI.render(MainImage.getImageMat());
+				GUI.destroyGUI();
 			}
 		});
 

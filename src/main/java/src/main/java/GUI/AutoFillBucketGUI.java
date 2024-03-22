@@ -1,14 +1,17 @@
 package src.main.java.GUI;
 
-import javax.swing.*;
+
+
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SaveGUI extends JButton
+public class AutoFillBucketGUI extends JButton
 {
-	public SaveGUI()
+	public AutoFillBucketGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(11)));
+		setIcon(new ImageIcon(FilterGUI.getFilepath(8)));
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -22,13 +25,7 @@ public class SaveGUI extends JButton
 	{
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
-			GUI.createGUI();
-			SaveGUI.launch();
+			System.out.println("bucket");
 		}
-	}
-
-	public static void launch()
-	{
-		System.out.println("Save launched WIP");
 	}
 }

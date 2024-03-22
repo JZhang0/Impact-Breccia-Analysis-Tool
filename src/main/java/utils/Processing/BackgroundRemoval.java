@@ -3,6 +3,7 @@ package utils.Processing;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 
+import src.main.java.GUI.MainImage;
 import utils.Definition.ColorRGBValue;
 import utils.File.FileIO;
 
@@ -34,5 +35,19 @@ public class BackgroundRemoval {
         destImage = MatManager.recolor(destImage, ColorRGBValue.RGB_BLACK, ColorRGBValue.RGB_BLACK, ColorRGBValue.RGB_WHITE);
 
         return destImage;
+    }
+
+    //Remove the background from the image and replace it with empty space
+    public static Mat subtractBackground()
+    {
+        return removeBackground(MainImage.getImageMat());
+    }
+
+    //Save the image with no background permanently
+    public static void save()
+    {
+        MainImage.setImage(subtractBackground());
+
+        FileIO.export("SubBackground");
     }
 }

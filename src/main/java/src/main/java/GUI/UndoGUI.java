@@ -12,15 +12,14 @@ public class UndoGUI extends JButton
 	public UndoGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(12)));
-		addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if (MainImage.exists())
-				{
-					History.undo();
-				}
-			}
-		});
+		addActionListener(e -> act());
+	}
+
+	public static void act()
+	{
+		if (MainImage.exists() && GUI.canCreateGUI())
+		{
+			History.undo();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package src.main.java.GUI;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import utils.File.FileIO;
 
 /*

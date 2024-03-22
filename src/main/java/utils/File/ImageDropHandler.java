@@ -4,7 +4,7 @@ import src.main.java.GUI.GUI;
 import src.main.java.GUI.MainImage;
 import src.main.java.Settings;
 
-import javax.swing.*;
+import javax.swing.TransferHandler;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -37,25 +37,16 @@ public class ImageDropHandler extends TransferHandler
 			//Create a list to store the files dragged into IBAT
 			//This is implemented as a list in case of the event that multiple files are dragged into IBAT at once
 			List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
+			File file_to_process = getFile(files);
 
-			//Loop through the entire list
-			//The final valid image is the one that will actually be processed
-			for (File file : files)
+			//Insert the file if the user imported a valid file
+			if (file_to_process != null)
 			{
-				//Loop through all the valid file formats to check to see if the current file is an image we can process
-				for (String filetype : Settings.SUPPORTED_FILE_FORMATS)
-				{
-					//If it is a valid image, then set it to the image we'll be using
-					//Note that this will be overwritten with the final valid image in the input
-					if (file.getName().endsWith("." + filetype))
-					{
-						MainImage.setImage(FileIO.readFile(file.getAbsolutePath()));
-						GUI.render(MainImage.getImageByte());
-						MainImage.setFilename(file.getName().substring(0, file.getName().lastIndexOf('.')));
-						MainImage.setTimestamp(System.currentTimeMillis());
-						FileIO.export("default");
-					}
-				}
+				MainImage.setImage(FileIO.readFile(file_to_process.getAbsolutePath()));
+				MainImage.setFilename(file_to_process.getName().substring(0, file_to_process.getName().lastIndexOf('.')));
+				MainImage.setTimestamp(System.currentTimeMillis());
+				GUI.render(MainImage.getImageMat());
+				FileIO.export("default");
 			}
 
 			return true;
@@ -66,5 +57,31 @@ public class ImageDropHandler extends TransferHandler
 
 			return false;
 		}
+	}
+
+	//Find the file to process
+	//Loop through the files that the user has imported and return the last valid one
+	private static File getFile(List<File> files)
+	{
+		File file_to_process = null;
+
+		//Loop through the entire list
+		//The final valid image is the one that will actually be processed
+		for (File file : files)
+		{
+			//Loop through all the valid file formats to check to see if the current file is an image we can process
+			for (String filetype : Settings.SUPPORTED_FILE_FORMATS)
+			{
+				//If it is a valid image, then set it to the image we'll be using
+				//Note that this will be overwritten with the final valid image in the input
+				if (filetype.equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+				{
+					file_to_process = file;
+					break;
+				}
+			}
+		}
+
+		return file_to_process;
 	}
 }
