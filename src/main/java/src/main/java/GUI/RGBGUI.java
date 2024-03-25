@@ -8,12 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.ButtonGroup;
-import javax.swing.JToggleButton;
 import java.awt.GridLayout;
 import java.awt.Color;
 
@@ -25,10 +19,8 @@ import java.awt.event.WindowEvent;
 public class RGBGUI extends JButton
 {
 	public RGBGUI()
-	public RGBGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(2)));
-
 
 		addActionListener(new ActionListener() {
 			@Override
@@ -50,7 +42,6 @@ public class RGBGUI extends JButton
 
 	public static void launch()
 	{
-		JDialog dialog = new JDialog(GUI.getFrame(), "RGB channel splitter", true);
 		JDialog dialog = new JDialog(GUI.getFrame(), "RGB channel splitter", true);
 		dialog.setLayout(new GridLayout(1, 4));
 		ButtonGroup group = new ButtonGroup();
