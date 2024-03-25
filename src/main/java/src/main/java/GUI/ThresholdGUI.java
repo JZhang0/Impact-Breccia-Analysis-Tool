@@ -34,13 +34,20 @@ public class ThresholdGUI extends JButton
 		setIcon(new ImageIcon(FilterGUI.getFilepath(5)));
 		addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (MainImage.exists())
-				{
-					ThresholdGUI.launch();
-				}
+			public void actionPerformed(ActionEvent e)
+			{
+				act();
 			}
 		});
+	}
+
+	public static void act()
+	{
+		if (MainImage.exists() && GUI.canCreateGUI())
+		{
+			GUI.createGUI();
+			ThresholdGUI.launch();
+		}
 	}
 
 	public static void launch()
@@ -78,7 +85,7 @@ public class ThresholdGUI extends JButton
 		slider.setValue(Threshold.getThresh());
 
 		//Render the contrast with whatever thresh value is currently in memory
-		GUI.render(MainImage.matToByte(Threshold.adjustThreshold(Threshold.getThresh())));
+		GUI.render(Threshold.adjustThreshold(Threshold.getThresh()));
 
 		//Updating the slider
 		slider.addChangeListener(new ChangeListener() {
@@ -112,7 +119,7 @@ public class ThresholdGUI extends JButton
 				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.THRESHOLD_MIN && Integer.parseInt(text_field.getText()) <= Settings.THRESHOLD_MAX)
 				{
 					threshold_adjustment_value = Integer.parseInt(text_field.getText());
-					GUI.render(MainImage.matToByte(Threshold.adjustThreshold(threshold_adjustment_value)));
+					GUI.render(Threshold.adjustThreshold(threshold_adjustment_value));
 				}
 			}
 		});
@@ -123,6 +130,7 @@ public class ThresholdGUI extends JButton
 			public void actionPerformed(ActionEvent e)
 			{
 				Threshold.save();
+				GUI.destroyGUI();
 				dialog.dispose();
 			}
 		});
@@ -132,7 +140,8 @@ public class ThresholdGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				GUI.render(MainImage.matToByte(MainImage.getImageMat()));
+				GUI.render(MainImage.getImageMat());
+				GUI.destroyGUI();
 			}
 		});
 

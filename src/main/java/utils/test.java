@@ -10,7 +10,7 @@ import utils.Processing.*;
 
 public class test {
     public static void main(String[] args) {
-		nu.pattern.OpenCV.loadLocally();
+		/*nu.pattern.OpenCV.loadLocally();
         MorphManager mm = MorphManager.getInstance();
 
 		Mat sample, edges, dest;
@@ -57,6 +57,6 @@ public class test {
 
         // alpha = gray.Max / gray.Mean, beta = Gray.min * alpha
         // kSize needs to be porportional to image dimension.
-        // Need an algorithm to auto determine threshold value, current approach: invert gray image -> maxvalue - stdDev.
+        // Need an algorithm to auto determine threshold value, current approach: invert gray image -> maxvalue - stdDev.*/
 	}
 }

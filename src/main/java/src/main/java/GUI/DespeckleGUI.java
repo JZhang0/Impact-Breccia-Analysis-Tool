@@ -1,37 +1,28 @@
 package src.main.java.GUI;
 
+
+
 import src.main.java.Settings;
-import utils.Processing.Gauss;
+import utils.Processing.Despeckler;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class GaussGUI extends JButton
+public class DespeckleGUI extends JButton
 {
-	//The amount that we are adjusting the contrast by
-	//This is equivalent to the kernel value saved in the Gauss class
-	private static int gauss_adjustment_value;
+	private static int despeckle_adjustment_value;
 
-	public GaussGUI()
+	public DespeckleGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(1)));
+		setIcon(new ImageIcon(FilterGUI.getFilepath(6)));
 		addActionListener(e -> act());
 	}
 
@@ -40,19 +31,21 @@ public class GaussGUI extends JButton
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
 			GUI.createGUI();
-			GaussGUI.launch();
+			launch();
 		}
 	}
+
+
 
 	public static void launch()
 	{
 		JFrame frame = GUI.getFrame();
-		JDialog dialog = new JDialog(frame, "Apply Gaussian blur", true);
+		JDialog dialog = new JDialog(frame, "Despeckle", true);
 		dialog.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		//Slider
-		JSlider slider = new JSlider(Settings.GAUSS_MIN, Settings.GAUSS_MAX);
+		JSlider slider = new JSlider(Settings.DESPECKLE_MIN, Settings.DESPECKLE_MAX);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -76,18 +69,18 @@ public class GaussGUI extends JButton
 		dialog.add(button, constraints);
 
 		//Set defaults
-		text_field.setText(String.valueOf((Gauss.getKernel())));
-		slider.setValue((Gauss.getKernel()));
+		text_field.setText(String.valueOf((Despeckler.getKernel())));
+		slider.setValue((Despeckler.getKernel()));
 
-		//Render the contrast with whatever alpha value is currently in memory
-		GUI.render(Gauss.addGauss(Gauss.getKernel()));
+		//Render the image with despeckling using whatever k size is currently in memory
+		GUI.render(Despeckler.despeckle(Despeckler.getKernel()));
 
 		//Updating the slider
 		slider.addChangeListener(e ->
 		{
-			gauss_adjustment_value = slider.getValue();
+			despeckle_adjustment_value = slider.getValue();
 
-			text_field.setText(String.valueOf(gauss_adjustment_value));
+			text_field.setText(String.valueOf(despeckle_adjustment_value));
 		});
 
 		//Override the documentListener so we can control what happens when the textfield changes
@@ -109,10 +102,10 @@ public class GaussGUI extends JButton
 
 			//When the textfield changes to something valid, update the image rendered on the GUI
 			private void updateTextFieldValue() {
-				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.GAUSS_MIN && Integer.parseInt(text_field.getText()) <= Settings.GAUSS_MAX)
+				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.DESPECKLE_MIN && Integer.parseInt(text_field.getText()) <= Settings.DESPECKLE_MAX)
 				{
-					gauss_adjustment_value = Integer.parseInt(text_field.getText());
-					GUI.render(Gauss.addGauss(gauss_adjustment_value));
+					despeckle_adjustment_value = Integer.parseInt(text_field.getText());
+					GUI.render(Despeckler.despeckle(despeckle_adjustment_value));
 				}
 			}
 		});
@@ -120,12 +113,12 @@ public class GaussGUI extends JButton
 		//Save
 		button.addActionListener(e ->
 		{
-			Gauss.save();
+			Despeckler.save();
 			GUI.destroyGUI();
 			dialog.dispose();
 		});
 
-		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
+		//Detect when the dialog closes. Reset the preview if the user doesn't want to despeckle
 		dialog.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e)

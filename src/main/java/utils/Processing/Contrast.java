@@ -15,13 +15,27 @@ public class Contrast
     //The alpha value is the parameter by which we adjust the contrast
     private static double alpha = 1.0;
 
-    //Adjust the contrast and return a copy of the modified image to be displayed
-    public static Mat adjustConstrast(double alpha_value)
-    {
-        Mat new_image = new Mat();
-        Core.multiply(MainImage.getImageMat(), new Scalar(alpha_value, alpha_value, alpha_value), new_image);
-        alpha = alpha_value;
+    //The beta value is the parameter by which we adjust the brightness
+    private static int beta = 0;
 
+    //Adjust the contrast and return a copy of the modified image to be displayed
+    public static Mat adjustConstrast(double alpha_value, int beta_value)
+    {
+        //Create a blank image Mat
+        Mat new_image = new Mat();
+
+        //Adjust the contrast
+        Core.multiply(MainImage.getImageMat(), new Scalar(alpha_value, alpha_value, alpha_value), new_image);
+
+        //Adjust the brightness
+		Core.add(new_image, new Scalar(beta_value, beta_value, beta_value), new_image);
+
+		//Save our internal alpha and beta values to remember this as our current setting
+		//When we go to save the file, we use these as the alpha and beta values
+        alpha = alpha_value;
+		beta = beta_value;
+
+		//Return the image with contrast and brightness adjusted
         return new_image;
     }
 
@@ -31,16 +45,41 @@ public class Contrast
         return alpha;
     }
 
+	//Return the currently saved beta value
+	public static int getBeta()
+	{
+		return beta;
+	}
+
     //Save the image to the MainImage
     public static void save()
     {
-        MainImage.setImage(adjustConstrast(alpha));
-        alpha = 1.0;
+        //Update the main image
+        MainImage.setImage(adjustConstrast(alpha, beta));
 
+        //Reset parameters
+        alpha = 1.0;
+		beta = 0;
+
+        //Export for history
         FileIO.export("Contrast");
     }
 
+	//Automatically adjust the contrast of the image
+	public static Mat auto()
+	{
+		//Generate a histogram of the greyscaled image to get some data on it
+		HistCalculator hc = new HistCalculator(MatManager.RGBtoGray(MainImage.getImageMat()));
 
+		//Calculate the optimal alpha value to adjust the contrast by
+		double alpha = hc.getMax() / hc.getMean();
+
+		//Calculate the optimal beta value to adjust the brightness by
+		int beta = (int) (alpha * hc.getMin());
+
+		//Adjust the contrast
+		return adjustConstrast(alpha, beta);
+	}
 
 
 

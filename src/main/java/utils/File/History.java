@@ -1,5 +1,6 @@
 package utils.File;
 
+import org.opencv.core.Mat;
 import src.main.java.GUI.GUI;
 import src.main.java.GUI.MainImage;
 
@@ -41,8 +42,8 @@ public class History
 		if (History.getVersion() > 1)
 		{
 			History.decreaseVersion();
-			MainImage.setImage(FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - 1)));
-			GUI.render(MainImage.getImageByte());
+			MainImage.setImage(getPreviousImage(1));
+			GUI.render(MainImage.getImageMat());
 		}
 	}
 
@@ -52,9 +53,22 @@ public class History
 		if (History.getVersion() < filenames.size())
 		{
 			History.increaseVersion();
-			MainImage.setImage(FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - 1)));
-			GUI.render(MainImage.getImageByte());
+			MainImage.setImage(getPreviousImage(1));
+			GUI.render(MainImage.getImageMat());
 		}
+	}
+
+	public static Mat getPreviousImage(int back)
+	{
+		if (back < 2)
+			return getOriginalImage();
+		else
+			return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - back));
+	}
+
+	public static Mat getOriginalImage()
+	{
+		return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - version_history_index));
 	}
 
 	//Add a filename to the history list

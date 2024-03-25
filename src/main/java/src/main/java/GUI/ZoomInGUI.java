@@ -1,17 +1,18 @@
 package src.main.java.GUI;
 
-import utils.File.History;
+
+import utils.GUI.Zoom;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RedoGUI extends JButton
+public class ZoomInGUI extends JButton
 {
-	public RedoGUI()
+	public ZoomInGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(13)));
+		setIcon(new ImageIcon(FilterGUI.getFilepath(15)));
 		addActionListener(e -> act());
 	}
 
@@ -19,7 +20,7 @@ public class RedoGUI extends JButton
 	{
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
-			History.redo();
+			Zoom.zoomIn();
 		}
 	}
 }

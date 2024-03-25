@@ -1,20 +1,37 @@
 package src.main.java.GUI;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
+import org.opencv.core.Mat;
 import src.main.java.Settings;
 import utils.File.Hotkeys;
 import utils.File.ImageDropHandler;
+import utils.GUI.Zoom;
+import utils.GUI.Pan;
+import utils.Processing.MatManager;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.RenderingHints;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Image;
 
 public class GUI extends javax.swing.JFrame
 {
     private static JFrame frame;
     private static JPanel buttonPanel;
     private static JPanel mainPanel;
+    private static Image current_image = null;
+
+    private static boolean popup_available = true;
 
     //Create the GUI for the application
     public GUI()
@@ -29,7 +46,6 @@ public class GUI extends javax.swing.JFrame
 
         //Add button panel and main panel to the frame
         frame.add(buttonPanel, BorderLayout.NORTH);
-        //frame.add(createLabelPanel(), BorderLayout.NORTH);
         frame.add(mainPanel, BorderLayout.CENTER);
 
         //Add hotkey support
@@ -47,7 +63,7 @@ public class GUI extends javax.swing.JFrame
     private static JPanel createButtonPanel()
     {
         JPanel topPanel = new JPanel();
-        JButton[] buttons = new JButton[12];
+        JButton[] buttons = new JButton[21];
 
         buttons[0] = new ContrastGUI();
         buttons[1] = new GaussGUI();
@@ -55,12 +71,21 @@ public class GUI extends javax.swing.JFrame
         buttons[3] = new InvertGUI();
         buttons[4] = new ThresholdGUI();
         buttons[5] = new SubBackgroundGUI();
-        buttons[6] = new ButtonTMP();
-        buttons[7] = new ButtonTMP();
-        buttons[8] = new ButtonTMP();
-        buttons[9] = new UndoGUI();
-        buttons[10] = new RedoGUI();
-        buttons[11] = new SaveGUI();
+        buttons[6] = new DespeckleGUI();
+        buttons[7] = new OutliersGUI();
+        buttons[8] = new AutoFillBucketGUI();
+        buttons[9] = new AutomateGUI();
+        buttons[10] = new PencilGUI();
+        buttons[11] = new EraserGUI();
+        buttons[12] = new FillBucketGUI();
+        buttons[13] = new EraserBucketGUI();
+        buttons[14] = new CropGUI();
+        buttons[15] = new ZoomInGUI();
+        buttons[16] = new ZoomOutGUI();
+        buttons[17] = new ResetGUI();
+        buttons[18] = new UndoGUI();
+        buttons[19] = new RedoGUI();
+        buttons[20] = new SaveGUI();
 
         //Initialize the bar's layout
         topPanel.setLayout(new GridLayout(1, buttons.length));
@@ -68,88 +93,109 @@ public class GUI extends javax.swing.JFrame
         for (JButton button : buttons)
         {
             topPanel.add(button);
-            adjustButtonSize(button, frame, buttons.length);
+            button.setPreferredSize(new Dimension(50, 75));
+            button.setBackground(Color.black);
+            button.setIcon(new ImageIcon(((ImageIcon) button.getIcon()).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
         }
+
 
         return topPanel;
     }
 
-	/*private static JPanel createLabelPanel() {
-		// Create labels for buttons
-		JLabel label1 = new JLabel("Button 1 Label");
-		JLabel label2 = new JLabel("Button 2 Label");
-		JLabel label3 = new JLabel("Button 3 Label");
-		JLabel label4 = new JLabel("Button 3 Label");
-		JLabel label5 = new JLabel("Button 3 Label");
-		JLabel label6 = new JLabel("Button 3 Label");
-		JLabel label7 = new JLabel("Button 3 Label");
-		JLabel label8 = new JLabel("Button 3 Label");
-		JLabel label9 = new JLabel("Button 3 Label");
-		JLabel label10 = new JLabel("Button 3 Label");
-		JLabel label11 = new JLabel("Button 3 Label");
-		JLabel label12 = new JLabel("Button 3 Label");
+    //Render the GUI using this image
+    public static void render(Mat newImage)
+    {
+        //Update the current_image to the new image to be displayed by the GUI
+        current_image = MatManager.matToImage(newImage);
 
-		// Add labels to a panel with box layout
-		JPanel labelPanel = new JPanel();
-		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
-		labelPanel.add(label1);
-		labelPanel.add(label2);
-		labelPanel.add(label3);
-		labelPanel.add(label4);
-		labelPanel.add(label5);
-		labelPanel.add(label6);
-		labelPanel.add(label7);
-		labelPanel.add(label8);
-		labelPanel.add(label9);
-		labelPanel.add(label10);
-		labelPanel.add(label11);
-		labelPanel.add(label12);
+        //Scale the image to match the height/width of the main panel
+        current_image = current_image.getScaledInstance(-1, mainPanel.getHeight(), Image.SCALE_DEFAULT);
 
-		return labelPanel;
-	}*/
+        //Render the new current_image
+        render();
+    }
 
-    //Create the main panel that displays the image
+    //Render the GUI without updating the current_image
+    public static void render()
+    {
+        //Clear the current image
+        mainPanel.removeAll();
+
+        //Rerender the image with what is currently in current_image
+        mainPanel.repaint();
+    }
+
+
     private static JPanel createMainPanel()
     {
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g)
+            {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+
+                if (current_image != null)
+                {
+                    // Calculate the scaled size based on the zoom factor
+                    int scaled_width = (int) (current_image.getWidth(null) * Zoom.getZoom());
+                    int scaled_height = (int) (current_image.getHeight(null) * Zoom.getZoom());
+
+                    // Calculate the position to center the image
+                    int x = (getWidth() - scaled_width) / 2;
+                    int y = (getHeight() - scaled_height) / 2;
+
+                    //Use nearest neighbour to stop blurring pixels together
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+
+                    //Render the image to the screen
+                    g2d.drawImage(current_image, x + Pan.getX(), y + Pan.getY(), scaled_width, scaled_height, null);
+                }
+                else
+                {
+                    // Display a JLabel if the image is null
+                    JLabel label = new JLabel("Drop image here");
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    label.setVerticalAlignment(SwingConstants.CENTER);
+                    label.setBounds(0, 0, getWidth(), getHeight());
+                    add(label);
+                }
+            }
+        };
+
         mainPanel.setLayout(new BorderLayout());
-        JLabel helloLabel = new JLabel("Drop image here");
 
-        helloLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        mainPanel.add(helloLabel, BorderLayout.CENTER);
-
+        //Add image drag and drop functionality
         mainPanel.setTransferHandler(new ImageDropHandler());
 
+        //Add image pan functionality
+        Pan.addMouseListeners(mainPanel);
+
         return mainPanel;
-    }
-
-    //Update button size
-    private static void adjustButtonSize(JButton button, JFrame frame, int button_total) {
-        Icon icon = button.getIcon();
-        ImageIcon imageIcon = (ImageIcon) icon;
-        Image image = imageIcon.getImage();
-        int size = Math.min(frame.getHeight(), frame.getWidth()) / button_total; // Divide by the number of buttons
-        Image scaledImage = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
-
-        button.setIcon(new ImageIcon(scaledImage));
-        button.setPreferredSize(new Dimension(size, size));
-    }
-
-    //This sets the main area to the image sample given
-    public static void render(byte[] image)
-    {
-        // Replace main panel with an image
-        ImageIcon imageIcon = new ImageIcon(image);
-        JLabel imageLabel = new JLabel(imageIcon);
-
-        mainPanel.removeAll();
-        mainPanel.add(imageLabel, BorderLayout.CENTER);
-        mainPanel.revalidate();
-        mainPanel.repaint();
     }
 
     public static JFrame getFrame()
     {
         return frame;
+    }
+
+    public static boolean canCreateGUI()
+    {
+        return popup_available;
+    }
+
+    public static void createGUI()
+    {
+        //Remove the overlay if it is currently enabled
+        OverlayGUI.reset();
+
+        //Block new popups from being created
+        popup_available = false;
+    }
+
+    public static void destroyGUI()
+    {
+        popup_available = true;
     }
 }

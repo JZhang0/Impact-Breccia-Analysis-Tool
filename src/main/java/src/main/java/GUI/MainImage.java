@@ -3,6 +3,7 @@ package src.main.java.GUI;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import utils.File.FileIO;
 
 /*
@@ -10,6 +11,8 @@ import utils.File.FileIO;
 * */
 public class MainImage
 {
+
+	//The image itself
 	//The filename of the image
 	private static String filename = "";
 
@@ -19,6 +22,7 @@ public class MainImage
 	//The image itself
 	private static Mat image;
 
+	//Update the image being processed by the application to be new_image
 	//This blocks access to any filters until an image has been imported into the application
 	private static boolean exists = false;
 
@@ -27,8 +31,10 @@ public class MainImage
 	{
 		image = new_image;
 		exists = true;
+		exists = true;
 	}
 
+	//Return the application's image as a byte array
 	//Return the application's image as a byte array
 	public static byte[] getImageByte()
 	{
@@ -36,11 +42,13 @@ public class MainImage
 	}
 
 	//Return the application's image as a Mat
+	//Return the application's image as a Mat
 	public static Mat getImageMat()
 	{
 		return image;
 	}
 
+	//Convert a Mat into a byte array
 	//Convert a Mat into a byte array
 	public static byte[] matToByte(Mat image)
 	{
