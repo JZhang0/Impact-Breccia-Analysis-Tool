@@ -51,6 +51,9 @@ public class GUI extends javax.swing.JFrame
         //Add hotkey support
         new Hotkeys();
 
+        //Add hotkey support
+        new Hotkeys();
+
         //Set application size
         if (Settings.LAUNCH_MAXIMIZED)
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
