@@ -28,6 +28,11 @@ public class Threshold
 		return thresh;
 	}
 
+	public static Mat auto()
+	{
+		return adjustThreshold(200);
+	}
+
 	//Save this filter to MainImage's current image
 	public static void save()
 	{

@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.Processing.Gauss;
 import utils.Processing.Threshold;
 
 import javax.swing.JFrame;
@@ -67,10 +68,18 @@ public class ThresholdGUI extends JButton
 		//Textfield
 		JTextField text_field = new JTextField(10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		dialog.add(text_field, constraints);
+
+		//Automate button
+		JButton button_auto = new JButton("Automate");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		dialog.add(text_field, constraints);
+		dialog.add(button_auto, constraints);
 
 		//Confirmation button
 		JButton button = new JButton("Confirm");
@@ -88,13 +97,11 @@ public class ThresholdGUI extends JButton
 		GUI.render(Threshold.adjustThreshold(Threshold.getThresh()));
 
 		//Updating the slider
-		slider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				threshold_adjustment_value = slider.getValue();
+		slider.addChangeListener(e ->
+		{
+			threshold_adjustment_value = slider.getValue();
 
-				text_field.setText(String.valueOf(threshold_adjustment_value));
-			}
+			text_field.setText(String.valueOf(threshold_adjustment_value));
 		});
 
 		//Override the documentListener so we can control what happens when the textfield changes
@@ -124,15 +131,20 @@ public class ThresholdGUI extends JButton
 			}
 		});
 
+		//Automate
+		button_auto.addActionListener(e ->
+		{
+			GUI.render(Threshold.auto());
+			threshold_adjustment_value = Threshold.getThresh();
+			text_field.setText(String.valueOf(threshold_adjustment_value));
+		});
+
 		//Save
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				Threshold.save();
-				GUI.destroyGUI();
-				dialog.dispose();
-			}
+		button.addActionListener(e ->
+		{
+			Threshold.save();
+			GUI.destroyGUI();
+			dialog.dispose();
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours

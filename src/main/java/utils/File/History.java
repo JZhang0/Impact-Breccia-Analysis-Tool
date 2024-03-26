@@ -53,7 +53,7 @@ public class History
 		if (History.getVersion() < filenames.size())
 		{
 			History.increaseVersion();
-			MainImage.setImage(getPreviousImage(1));
+			MainImage.setImage(getPreviousImage(2));
 			GUI.render(MainImage.getImageMat());
 		}
 	}

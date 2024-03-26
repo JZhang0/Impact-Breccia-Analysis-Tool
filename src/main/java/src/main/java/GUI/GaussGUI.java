@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.Processing.Contrast;
 import utils.Processing.Gauss;
 
 import javax.swing.JFrame;
@@ -62,10 +63,18 @@ public class GaussGUI extends JButton
 		//Textfield
 		JTextField text_field = new JTextField(10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		dialog.add(text_field, constraints);
+
+		//Automate button
+		JButton button_auto = new JButton("Automate");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		dialog.add(text_field, constraints);
+		dialog.add(button_auto, constraints);
 
 		//Confirmation button
 		JButton button = new JButton("Confirm");
@@ -115,6 +124,14 @@ public class GaussGUI extends JButton
 					GUI.render(Gauss.addGauss(gauss_adjustment_value));
 				}
 			}
+		});
+
+		//Automate
+		button_auto.addActionListener(e ->
+		{
+			GUI.render(Gauss.auto());
+			gauss_adjustment_value = Gauss.getKernel();
+			text_field.setText(String.valueOf(gauss_adjustment_value));
 		});
 
 		//Save

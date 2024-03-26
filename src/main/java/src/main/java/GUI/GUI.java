@@ -63,29 +63,26 @@ public class GUI extends javax.swing.JFrame
     private static JPanel createButtonPanel()
     {
         JPanel topPanel = new JPanel();
-        JButton[] buttons = new JButton[21];
+        JButton[] buttons = new JButton[18];
 
-        buttons[0] = new ContrastGUI();
-        buttons[1] = new GaussGUI();
-        buttons[2] = new RGBGUI();
-        buttons[3] = new InvertGUI();
-        buttons[4] = new ThresholdGUI();
-        buttons[5] = new SubBackgroundGUI();
+        buttons[0] = new SubBackgroundGUI();
+        buttons[1] = new InvertGUI();
+        buttons[2] = new GaussGUI();
+        buttons[3] = new ContrastGUI();
+        buttons[4] = new RGBGUI();
+        buttons[5] = new ThresholdGUI();
         buttons[6] = new DespeckleGUI();
         buttons[7] = new OutliersGUI();
         buttons[8] = new AutoFillBucketGUI();
         buttons[9] = new AutomateGUI();
-        buttons[10] = new PencilGUI();
-        buttons[11] = new EraserGUI();
-        buttons[12] = new FillBucketGUI();
-        buttons[13] = new EraserBucketGUI();
-        buttons[14] = new CropGUI();
-        buttons[15] = new ZoomInGUI();
-        buttons[16] = new ZoomOutGUI();
-        buttons[17] = new ResetGUI();
-        buttons[18] = new UndoGUI();
-        buttons[19] = new RedoGUI();
-        buttons[20] = new SaveGUI();
+        buttons[10] = new FillBucketGUI();
+        buttons[11] = new MagicEraserGUI();
+        buttons[12] = new ZoomInGUI();
+        buttons[13] = new ZoomOutGUI();
+        buttons[14] = new ResetGUI();
+        buttons[15] = new UndoGUI();
+        buttons[16] = new RedoGUI();
+        buttons[17] = new SaveGUI();
 
         //Initialize the bar's layout
         topPanel.setLayout(new GridLayout(1, buttons.length));
@@ -93,11 +90,11 @@ public class GUI extends javax.swing.JFrame
         for (JButton button : buttons)
         {
             topPanel.add(button);
-            button.setPreferredSize(new Dimension(50, 75));
+            button.setPreferredSize(new Dimension(85, 85));
             button.setBackground(Color.black);
-            button.setIcon(new ImageIcon(((ImageIcon) button.getIcon()).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+            button.setFocusPainted(false);
+            button.setIcon(new ImageIcon(((ImageIcon) button.getIcon()).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
         }
-
 
         return topPanel;
     }
@@ -171,6 +168,9 @@ public class GUI extends javax.swing.JFrame
 
         //Add image pan functionality
         Pan.addMouseListeners(mainPanel);
+
+        //Add image zoom functionality
+        Zoom.addMouseListeners(mainPanel);
 
         return mainPanel;
     }

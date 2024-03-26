@@ -43,13 +43,14 @@ public class RGBGUI extends JButton
 	public static void launch()
 	{
 		JDialog dialog = new JDialog(GUI.getFrame(), "RGB channel splitter", true);
-		dialog.setLayout(new GridLayout(1, 4));
+		dialog.setLayout(new GridLayout(1, 5));
 		ButtonGroup group = new ButtonGroup();
 		JToggleButton[] buttons = new JToggleButton[3];
 
 		buttons[0] = new JToggleButton("<html><center>Preview red<br>channel</center></html>");
 		buttons[1] = new JToggleButton("<html><center>Preview green<br>channel</center></html>");
 		buttons[2] = new JToggleButton("<html><center>Preview blue<br>channel</center></html>");
+		JButton button_auto = new JButton("<html><center>Auto<br>channel<br>detect</center></html>");
 		JButton button4 = new JButton("<html><center>Save current<br>channel</center></html>");
 
 		buttons[0].setBackground(Color.red);
@@ -74,6 +75,17 @@ public class RGBGUI extends JButton
 			});
 		}
 
+		button_auto.setFocusable(false);
+		dialog.add(button_auto);
+
+		//Automate
+		button_auto.addActionListener(e ->
+		{
+			GUI.render(RGB.auto());
+
+			buttons[RGB.getChannel()].setSelected(true);
+		});
+
 		button4.setFocusable(false);
 		dialog.add(button4);
 
@@ -96,7 +108,7 @@ public class RGBGUI extends JButton
 			}
 		});
 
-		dialog.setSize(400, 100);
+		dialog.setSize(500, 100);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}

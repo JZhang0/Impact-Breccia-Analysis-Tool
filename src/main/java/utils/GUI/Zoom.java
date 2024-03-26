@@ -3,7 +3,12 @@ package utils.GUI;
 import src.main.java.Settings;
 import src.main.java.GUI.GUI;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 //Controls the GUI's zoom functionality
 public class Zoom
@@ -36,5 +41,21 @@ public class Zoom
 	public static double getZoom()
 	{
 		return zoom_factor;
+	}
+
+	//Add the mouse listeners to main_panel
+	public static void addMouseListeners(JPanel main_panel)
+	{
+		main_panel.addMouseWheelListener(e ->
+		{
+			if (e.getWheelRotation() < 0)
+			{
+				zoomIn();
+			}
+			else
+			{
+				zoomOut();;
+			}
+		});
 	}
 }

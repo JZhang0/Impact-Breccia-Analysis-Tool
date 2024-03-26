@@ -6,7 +6,7 @@ public class Settings //this is getting replaced with a File with these values s
 	public static int DEFAULT_WIDTH = 1000;
 	public static int DEFAULT_HEIGHT = 800;
 	public static String VERSION = "0.0.2";
-	public static String[] ICONS = new String[] {"contrast", "gauss", "RGB", "invert", "subtract_background", "threshold", "despeckle", "outliers", "holes", "brush", "resize", "save", "undo", "redo", "auto", "zoom_in", "zoom_out", "zoom_reset", "fill_bucket", "eraser_bucket", "eraser"};
+	public static String[] ICONS = new String[] {"contrast", "gauss", "RGB", "invert", "subtract_background", "threshold", "despeckle", "outliers", "holes", "brush", "resize", "save", "undo", "redo", "auto", "zoom_in", "zoom_out", "zoom_reset", "fill_bucket", "eraser_bucket"};
 	public static double ZOOM_FACTOR = 1.1;
 
 	public static String[] SUPPORTED_FILE_FORMATS = new String[] {"avif", "jpg", "jpeg", "png", "tif", "tiff", "webp"};

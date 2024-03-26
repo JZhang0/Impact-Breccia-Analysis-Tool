@@ -2,7 +2,7 @@ package utils.GUI;
 
 import src.main.java.GUI.GUI;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -57,7 +57,10 @@ public class Pan
 			public void mousePressed(MouseEvent e)
 			{
 				//When the mouse is pressed, get the location of the press which the current pan will be made relative to
-				initial_position = e.getPoint();
+				if (SwingUtilities.isLeftMouseButton(e))
+				{
+					initial_position = e.getPoint();
+				}
 			}
 
 			//Stop panning the image
@@ -66,8 +69,16 @@ public class Pan
 			{
 				//When the mouse is released, the pan is over
 				//Add the total pan made to the buffer
-				buffer_offset.x += e.getX() - initial_position.x;
-				buffer_offset.y += e.getY() - initial_position.y;
+				if (SwingUtilities.isLeftMouseButton(e))
+				{
+					buffer_offset.x += e.getX() - initial_position.x;
+					buffer_offset.y += e.getY() - initial_position.y;
+				}
+				else if (SwingUtilities.isMiddleMouseButton(e))
+				{
+					Zoom.zoomReset();
+					Pan.panReset();
+				}
 			}
 		});
 

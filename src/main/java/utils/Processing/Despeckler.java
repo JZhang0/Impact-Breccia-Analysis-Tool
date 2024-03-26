@@ -20,6 +20,11 @@ public class Despeckler
 		return new_image;
 	}
 
+	public static Mat auto()
+	{
+		return despeckle(3);
+	}
+
 	//Save the image to the MainImage
 	public static void save()
 	{

@@ -17,17 +17,11 @@ public class Hotkeys
 					case "A": //AUTOMATE
 						AutomateGUI.act();
 						break;
-					case "B": //MANUAL FILL BUCKET
-						FillBucketGUI.act();
-						break;
 					case "C": //CONTRAST
 						ContrastGUI.act();
 						break;
 					case "D": //DESPECKLE
 						DespeckleGUI.act();
-						break;
-					case "E": //MANUAL ERASER
-						EraserGUI.act();
 						break;
 					case "G": //GAUSS BLUR
 						GaussGUI.act();
@@ -38,14 +32,8 @@ public class Hotkeys
 					case "I": //INVERT
 						InvertGUI.act();
 						break;
-					case "K": //CROP
-						CropGUI.act();
-						break;
 					case "O": //OUTLIERS
 						OutliersGUI.act();
-						break;
-					case "P": //PENCIL
-						PencilGUI.act();
 						break;
 					case "R": //RGB CHANNEL SPLITTER
 						RGBGUI.act();
@@ -58,9 +46,6 @@ public class Hotkeys
 						break;
 					case "U": //SUBTRACT BACKGROUND
 						SubBackgroundGUI.act();
-						break;
-					case "V": //ERASER BUCKET
-						EraserBucketGUI.act();
 						break;
 					case "Y": //REDO
 						RedoGUI.act();

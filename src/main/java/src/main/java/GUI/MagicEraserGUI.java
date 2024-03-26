@@ -2,11 +2,11 @@ package src.main.java.GUI;
 
 import javax.swing.*;
 
-public class FillBucketGUI extends JButton
+public class MagicEraserGUI extends JButton
 {
-	public FillBucketGUI()
+	public MagicEraserGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(18)));
+		setIcon(new ImageIcon(FilterGUI.getFilepath(19)));
 		addActionListener(e -> act());
 	}
 
@@ -15,12 +15,12 @@ public class FillBucketGUI extends JButton
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
 			GUI.createGUI();
-			FillBucketGUI.launch();
+			MagicEraserGUI.launch();
 		}
 	}
 
 	public static void launch()
 	{
-		System.out.println("fill bucket tool has been launched");
+		System.out.println("magic eraser tool has been launched");
 	}
 }

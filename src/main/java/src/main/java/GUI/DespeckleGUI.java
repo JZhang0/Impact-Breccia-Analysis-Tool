@@ -3,6 +3,7 @@ package src.main.java.GUI;
 
 
 import src.main.java.Settings;
+import utils.Processing.Contrast;
 import utils.Processing.Despeckler;
 
 import javax.swing.*;
@@ -55,10 +56,18 @@ public class DespeckleGUI extends JButton
 		//Textfield
 		JTextField text_field = new JTextField(10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 2;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		dialog.add(text_field, constraints);
+
+		//Automate button
+		JButton button_auto = new JButton("Automate");
+		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		dialog.add(text_field, constraints);
+		dialog.add(button_auto, constraints);
 
 		//Confirmation button
 		JButton button = new JButton("Confirm");
@@ -108,6 +117,14 @@ public class DespeckleGUI extends JButton
 					GUI.render(Despeckler.despeckle(despeckle_adjustment_value));
 				}
 			}
+		});
+
+		//Automate
+		button_auto.addActionListener(e ->
+		{
+			GUI.render(Despeckler.auto());
+			despeckle_adjustment_value = Contrast.getBeta();
+			text_field.setText(String.valueOf(despeckle_adjustment_value));
 		});
 
 		//Save

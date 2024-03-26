@@ -39,6 +39,11 @@ public class Gauss
 		return (kernel * 2) - 1;
 	}
 
+	public static Mat auto()
+	{
+		return addGauss(2);
+	}
+
 	//Save this Gaussian blur to the main image
 	public static void save()
 	{
