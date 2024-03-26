@@ -40,10 +40,10 @@ public class AutomateGUI extends JButton
 		boolean[] algs_to_run = {true, true, true, true, true, true, true, true, true};
 		JToggleButton[] buttons = new JToggleButton[9];
 
+		buttons[3] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(4)));
 		buttons[0] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(3)));
 		buttons[1] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(1)));
 		buttons[2] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(0)));
-		buttons[3] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(4)));
 		buttons[4] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(2)));
 		buttons[5] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(5)));
 		buttons[6] = new JToggleButton(new ImageIcon(FilterGUI.getFilepath(6)));
