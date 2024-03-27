@@ -45,7 +45,8 @@ public class EdgeDetection {
 
 		double mean = medianMat(srcImage);
 		int lower = (int)(Math.max(0, 0.7 * mean));
-		int upper = (int)(Math.min(255, 1.3 * mean));
+		int upper = (int)(Math.min(255, 1.6 * mean));
+		System.out.println("EdgeDetection | lower: " + lower + ", upper: " + upper);
 
 		Imgproc.Canny(srcImage, edges, lower, upper, apertureSize, L2gradient);
 

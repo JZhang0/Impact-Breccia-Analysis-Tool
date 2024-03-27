@@ -19,10 +19,10 @@ public class HistCalculator {
         m_mean = mean.get(0, 0)[0];
         m_stdDev = stdDev.get(0, 0)[0];
 
-        System.out.println("min: " + min);
-        System.out.println("max: " + max);
-        System.out.println("mean: " + m_mean);
-        System.out.println("stddev: " + m_stdDev);
+        System.out.println("HistCalculator | min: " + min);
+        System.out.println("HistCalculator | max: " + max);
+        System.out.println("HistCalculator | mean: " + m_mean);
+        System.out.println("HistCalculator | stddev: " + m_stdDev + "\n");
     }
 
     public double getMin(){

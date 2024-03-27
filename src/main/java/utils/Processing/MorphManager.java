@@ -5,8 +5,17 @@ import org.opencv.core.Size;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
+import src.main.java.Settings;
+
+import java.util.ArrayList;
+
+import utils.File.FileIO;
+import utils.GUI.MainImage;
+
 public class MorphManager {
     private static MorphManager MorphManager = null;
+
+    // A history of operations applied, 0 for erosion and 1 for dilation.
 
     private static int m_elementType = Imgproc.MORPH_RECT;
     private static int m_kernelSize = 5;
@@ -24,15 +33,14 @@ public class MorphManager {
     public static void updateKernel(int elementType, int kernelSize){
         m_elementType = elementType;
         m_kernelSize = kernelSize;
-        // m_kernel = Imgproc.getStructuringElement(m_elementType, new Size(2 * m_kernelSize + 1, 2 * m_kernelSize + 1), new Point(m_kernelSize, m_kernelSize));
         m_kernel = Imgproc.getStructuringElement(m_elementType, new Size(2 * m_kernelSize + 1, 2 * m_kernelSize + 1), new Point(-1, -1));
     }
 
     public static void updateKernel(int elementType, int width, int height){
         m_elementType = elementType;
-        m_kernelSize = width / 2000 + height / 1000;
-        System.out.println("Morph m_kernelSize: " + m_kernelSize);
-        m_kernel = Imgproc.getStructuringElement(m_elementType, new Size(2 * m_kernelSize + 1, 2 * m_kernelSize + 1), new Point(m_kernelSize, m_kernelSize));
+        m_kernelSize = (int) Math.floor((double)width / 2000 + (double)height / 1000);
+        System.out.println("MorphManager | m_kernelSize: " + m_kernelSize);
+        m_kernel = Imgproc.getStructuringElement(m_elementType, new Size(2 * m_kernelSize + 1, 2 * m_kernelSize + 1), new Point(-1, -1));
     }
 
     /**
@@ -40,7 +48,7 @@ public class MorphManager {
      * 
      * See https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html for details.
      * @param srcImage Input image
-     * @param iterations Numer of operations to apply
+     * @param iterations Number of operations to apply
      */
     public Mat erosion(Mat srcImage, int iterations){
         Mat destImage = MatManager.createMatWithProperty(srcImage);
@@ -55,7 +63,7 @@ public class MorphManager {
      * 
      * See https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html for details.
      * @param Input Input image
-     * @param iterations Numer of operations to apply
+     * @param iterations Number of operations to apply
      */
     public Mat dilation(Mat srcImage, int iterations){
         Mat destImage = MatManager.createMatWithProperty(srcImage);
@@ -70,7 +78,7 @@ public class MorphManager {
      * 
      * See https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html for details.
      * @param srcImage Input image
-     * @param iterations Numer of operations to apply
+     * @param iterations Number of operations to apply
      */
     public Mat opening(Mat srcImage, int iterations){
         Mat destImage = MatManager.createMatWithProperty(srcImage);
@@ -85,7 +93,7 @@ public class MorphManager {
      * 
      * See https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html for details.
      * @param srcImage Input image
-     * @param iterations Numer of operations to apply
+     * @param iterations Number of operations to apply
      */
     public Mat closing(Mat srcImage, int iterations){
         Mat destImage = MatManager.createMatWithProperty(srcImage);
@@ -93,5 +101,19 @@ public class MorphManager {
         Imgproc.morphologyEx(srcImage, destImage, Imgproc.MORPH_CLOSE, m_kernel, new Point(-1, -1), iterations);
 
         return destImage;
+    }
+
+    public static void applyErosion()
+	{
+		MainImage.setImage(MorphManager.erosion(MainImage.getImageMat(), 1));
+	}
+
+    public static void applyDilation()
+	{
+		MainImage.setImage(MorphManager.dilation(MainImage.getImageMat(), 1));
+	}
+
+    public static void save(String op){
+        FileIO.export(op);
     }
 }

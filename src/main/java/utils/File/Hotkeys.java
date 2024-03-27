@@ -14,26 +14,26 @@ public class Hotkeys
 			{
 				switch (KeyEvent.getKeyText(e.getKeyCode()))
 				{
-					case "A": //AUTOMATE
+					case "P": //AUTOMATE
 						AutomateGUI.act();
 						break;
 					case "C": //CONTRAST
 						ContrastGUI.act();
 						break;
-					case "D": //DESPECKLE
+					case "K": //DESPECKLE
 						DespeckleGUI.act();
 						break;
 					case "G": //GAUSS BLUR
 						GaussGUI.act();
 						break;
-					case "H": //AUTO HOLE FILLER
-						AutoFillBucketGUI.act();
+					case "D": //Dilation
+						DilationGUI.act();
 						break;
 					case "I": //INVERT
 						InvertGUI.act();
 						break;
-					case "O": //OUTLIERS
-						OutliersGUI.act();
+					case "E": //EROSION
+						ErosionGUI.act();
 						break;
 					case "R": //RGB CHANNEL SPLITTER
 						RGBGUI.act();
@@ -44,20 +44,20 @@ public class Hotkeys
 					case "T": //THRESHOLD
 						ThresholdGUI.act();
 						break;
-					case "U": //SUBTRACT BACKGROUND
-						SubBackgroundGUI.act();
+					case "H": //SUBTRACT BACKGROUND
+						HelpGUI.act();
 						break;
-					case "Y": //REDO
+					case "X": //REDO
 						RedoGUI.act();
 						break;
 					case "Z": //UNDO
 						UndoGUI.act();
 						break;
 					case "Tab": //PRIMARY OVERLAY
-						OverlayGUI.primary();
+						ToggleImage.toggle_main_image();
 						break;
 					case "Shift": //SECONDARY OVERLAY
-						OverlayGUI.secondary();
+						ToggleImage.toggle_edge_overlay();
 						break;
 					case "Minus": //ZOOM OUT
 						ZoomOutGUI.act();

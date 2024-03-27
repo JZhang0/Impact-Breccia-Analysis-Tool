@@ -1,74 +1,68 @@
 package utils.Processing;
 
-import src.main.java.GUI.AutoFillBucketGUI;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+
+import src.main.java.GUI.DilationGUI;
+import utils.Definition.ColorBGRValue;
+import utils.File.FileIO;
+import utils.GUI.MainImage;
 
 public class Automate
 {
-	public static void run(boolean blur, boolean contrast, boolean background, boolean rgb, boolean threshold, boolean despeckle, boolean outliers, boolean holes, boolean invert)
+	private static Mat original_image, contrast_image, gray_image, threshold_image, despeckle_image, morph_image;
+
+	public static void run(int mode)
 	{
-		System.out.println("Beginning automatic processing");
-		System.out.println("Blur: " + blur);
-		System.out.println("Contrast: " + contrast);
-		System.out.println("Subtract background: " + background);
-		System.out.println("RGB: " + rgb);
-		System.out.println("Threshold: " + threshold);
-		System.out.println("Despeckle: " + despeckle);
-		System.out.println("Outliers: " + outliers);
-		System.out.println("Holes: " + holes);
-		System.out.println("Invert: " + invert);
+		MorphManager mm = MorphManager.getInstance();
+		MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageMat().rows(), MainImage.getImageMat().cols());
 
-		if (invert)
-		{
-			//Invert.auto();
-			//Invert.save();
+        Mat main_image;
+
+        main_image = original_image = MainImage.getImageMat();
+
+        contrast_image = Contrast.autoContrast(main_image, 5.0);
+
+        gray_image = MatManager.RGBtoGray(contrast_image);
+
+		if(mode == 1){
+			threshold_image = Thresholding.autoGrayThreshold_dark(gray_image, 255, Imgproc.THRESH_BINARY);
+		}
+		else if(mode == 2){
+			threshold_image = Thresholding.autoGrayThreshold_bright(gray_image, 255, Imgproc.THRESH_BINARY);
 		}
 
-		if (blur)
-		{
-			//Gauss.auto();
-			//Gauss.save();
-		}
+        int ksize = (int) Math.floor((double)threshold_image.cols() / 2000 + (double)threshold_image.rows() / 1000);
+        despeckle_image = BlurFilter.MedianBlur(threshold_image, ksize);
 
-		if (contrast)
-		{
-			Contrast.auto();
-			Contrast.save();
-		}
 
-		if (background)
-		{
-			//BackgroundRemoval.auto();
-			//BackgroundRemoval.save();
-		}
+        morph_image = mm.opening(despeckle_image, 2);
+        morph_image = mm.closing(morph_image, 2);
 
-		if (rgb)
-		{
-			//RGB.auto();
-			//RGB.save();
-		}
+		MainImage.setImage(morph_image);
+	}
 
-		if (threshold)
-		{
-			//Threshold.auto();
-			//Threshold.save();
-		}
+	public static void reset(){
+		MainImage.setImage(original_image);
+	}
 
-		if (despeckle)
-		{
-			//Despeckler.auto();
-			//Despeckler.save();
-		}
+	public static void save(){
+		original_image = morph_image;
 
-		if (outliers)
-		{
-			//Outliers.auto();
-			//Outliers.save();
-		}
+		MainImage.setImage(contrast_image);
+		FileIO.export("Contrast");
 
-		if (holes)
-		{
-			//AutoFillBucket.auto();
-			//AutoFillBucketGUI.save();
-		}
+		MainImage.setImage(gray_image);
+		FileIO.export("Gray");
+
+		MainImage.setImage(threshold_image);
+		FileIO.export("Threshold");
+
+		MainImage.setImage(despeckle_image);
+		FileIO.export("Despeckle");
+
+		MainImage.setImage(morph_image);
+		FileIO.export("Morph");
 	}
 }

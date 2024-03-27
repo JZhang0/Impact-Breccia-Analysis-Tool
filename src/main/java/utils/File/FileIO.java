@@ -9,7 +9,9 @@ import java.util.Map;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.imgcodecs.Imgcodecs;
-import src.main.java.GUI.MainImage;
+
+import utils.GUI.MainImage;
+
 import java.nio.file.Files;
 
 public class FileIO {

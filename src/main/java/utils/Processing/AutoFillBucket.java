@@ -4,7 +4,8 @@ import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import src.main.java.GUI.MainImage;
+
+import utils.GUI.MainImage;
 
 public class AutoFillBucket
 {

@@ -2,8 +2,9 @@ package utils.Processing;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import src.main.java.GUI.MainImage;
+
 import utils.File.FileIO;
+import utils.GUI.MainImage;
 
 /*
 * This class controls the behaviour for inverting the colour of an image.

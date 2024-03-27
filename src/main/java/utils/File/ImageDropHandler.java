@@ -1,7 +1,9 @@
 package utils.File;
 
 import src.main.java.GUI.GUI;
-import src.main.java.GUI.MainImage;
+import utils.GUI.AnchorImage;
+import utils.GUI.MainImage;
+import utils.Processing.BackgroundRemoval;
 import src.main.java.Settings;
 
 import javax.swing.TransferHandler;
@@ -47,6 +49,13 @@ public class ImageDropHandler extends TransferHandler
 				MainImage.setTimestamp(System.currentTimeMillis());
 				GUI.render(MainImage.getImageMat());
 				FileIO.export("default");
+
+				GUI.createGUI();
+				BackgroundRemoval.save();
+				GUI.render(MainImage.getImageMat());
+				GUI.destroyGUI();
+
+				AnchorImage.getFromMain();
 			}
 
 			return true;

@@ -2,8 +2,9 @@ package utils.Processing;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import src.main.java.GUI.MainImage;
+
 import utils.File.FileIO;
+import utils.GUI.MainImage;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class RGB
 
 		channel = query_channel;
 
-		return MatManager.GraytoRGB(channels.get(query_channel));
+		return channels.get(query_channel);
 	}
 
 	public static int getChannel()

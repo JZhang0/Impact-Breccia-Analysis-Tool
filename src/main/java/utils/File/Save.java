@@ -1,7 +1,7 @@
 package utils.File;
 
-import src.main.java.GUI.MainImage;
 import src.main.java.Settings;
+import utils.GUI.MainImage;
 
 public class Save
 {
