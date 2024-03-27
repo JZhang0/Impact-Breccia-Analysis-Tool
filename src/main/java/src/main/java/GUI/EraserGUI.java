@@ -2,13 +2,14 @@ package src.main.java.GUI;
 
 import javax.swing.*;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 
 public class EraserGUI extends JButton
 {
 	public EraserGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(19)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(19)));
 		addActionListener(e -> act());
 	}
 

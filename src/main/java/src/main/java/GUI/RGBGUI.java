@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.RGB;
 
@@ -21,7 +22,7 @@ public class RGBGUI extends JButton
 {
 	public RGBGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(2)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(2)));
 
 		addActionListener(new ActionListener() {
 			@Override

@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.File.History;
 import utils.GUI.MainImage;
 
@@ -12,7 +13,7 @@ public class UndoGUI extends JButton
 {
 	public UndoGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(12)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(12)));
 		addActionListener(e -> act());
 	}
 

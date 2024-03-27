@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.BlurFilter;
 
@@ -54,7 +55,7 @@ public class GaussGUI extends JButton
 
 	public GaussGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(1)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(1)));
 		addActionListener(e -> act());
 	}
 

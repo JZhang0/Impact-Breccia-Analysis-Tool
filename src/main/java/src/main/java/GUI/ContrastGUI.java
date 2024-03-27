@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.Contrast;
 
@@ -60,7 +61,7 @@ public class ContrastGUI extends JButton
 
 	public ContrastGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(0)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(0)));
 		addActionListener(e -> act());
 	}
 

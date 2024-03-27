@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.Thresholding;
 
@@ -45,7 +46,7 @@ public class ThresholdGUI extends JButton
 
 	public ThresholdGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(5)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(5)));
 		addActionListener(e -> act());
 	}
 

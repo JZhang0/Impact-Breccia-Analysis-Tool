@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.MorphManager;
 
@@ -12,7 +13,7 @@ public class ErosionGUI extends JButton
 {
 	public ErosionGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(7)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(7)));
 		addActionListener(e -> act());
 	}
 

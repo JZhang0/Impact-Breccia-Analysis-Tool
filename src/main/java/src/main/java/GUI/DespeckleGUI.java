@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.BlurFilter;
 
@@ -52,7 +53,7 @@ public class DespeckleGUI extends JButton
 
 	public DespeckleGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(6)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(6)));
 		addActionListener(e -> act());
 	}
 
@@ -169,7 +170,7 @@ public class DespeckleGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				BlurFilter.save_median();
+				BlurFilter.resetMedian();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
 			}

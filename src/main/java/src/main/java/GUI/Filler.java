@@ -2,13 +2,14 @@ package src.main.java.GUI;
 
 import javax.swing.*;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 
 public class Filler extends JButton
 {
 	public Filler()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(18)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(18)));
 		addActionListener(e -> act());
 	}
 

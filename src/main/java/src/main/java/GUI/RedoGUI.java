@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.File.History;
 import utils.GUI.MainImage;
 
@@ -12,7 +13,7 @@ public class RedoGUI extends JButton
 {
 	public RedoGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(13)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(13)));
 		addActionListener(e -> act());
 	}
 

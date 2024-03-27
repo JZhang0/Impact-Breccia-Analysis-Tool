@@ -2,6 +2,7 @@ package src.main.java.GUI;
 
 
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.GUI.Pan;
 import utils.GUI.Zoom;
@@ -15,7 +16,7 @@ public class ResetGUI extends JButton
 {
 	public ResetGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(17)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(17)));
 		addActionListener(e -> act());
 	}
 

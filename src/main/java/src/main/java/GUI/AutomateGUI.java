@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.Automate;
 
@@ -18,7 +19,7 @@ public class AutomateGUI extends JButton
 
 	public AutomateGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(14)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(14)));
 		addActionListener(e -> act());
 	}
 

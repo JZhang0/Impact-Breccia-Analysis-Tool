@@ -23,7 +23,7 @@ public class RGB
 
 		channel = query_channel;
 
-		return channels.get(query_channel);
+		return MatManager.GraytoRGB(channels.get(query_channel));
 	}
 
 	public static int getChannel()
@@ -42,6 +42,7 @@ public class RGB
 		if (channel > -1)
 		{
 			MainImage.setImage(split(channel));
+			MainImage.setGray(true);
 
 			FileIO.export("RGB");
 		}

@@ -8,7 +8,6 @@ import utils.Processing.MorphManager;
 
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.core.CvType;
 
 public class Toggle
 {
@@ -22,7 +21,7 @@ public class Toggle
 	//Overlay the first image onto the current one
 	public static boolean render_edge_overlay()
 	{
-		if(MainImage.getImageMat().type() == CvType.CV_8UC1){
+		if(MainImage.checkGray()){
 			System.out.println("Secondary overlay has been enabled.");
 			MorphManager mm = MorphManager.getInstance();
 			MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageWidth(), MainImage.getImageHeight());

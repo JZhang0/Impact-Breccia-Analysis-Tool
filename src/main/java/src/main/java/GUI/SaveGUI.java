@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import src.main.java.Settings;
+import utils.File.IconLocator;
 import utils.File.Save;
 import utils.GUI.MainImage;
 import utils.Processing.Contrast;
@@ -19,7 +20,7 @@ public class SaveGUI extends JButton
 {
 	public SaveGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(11)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(11)));
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)

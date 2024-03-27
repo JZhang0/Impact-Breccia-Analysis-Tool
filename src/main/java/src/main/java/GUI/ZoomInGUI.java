@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.GUI.Zoom;
 
@@ -13,7 +14,7 @@ public class ZoomInGUI extends JButton
 {
 	public ZoomInGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(15)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(15)));
 		addActionListener(e -> act());
 	}
 

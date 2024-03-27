@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.MorphManager;
 
@@ -12,7 +13,7 @@ public class DilationGUI extends JButton
 {
 	public DilationGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(8)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(8)));
 		addActionListener(e -> act());
 	}
 

@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import utils.Definition.ColorBGRValue;
@@ -18,8 +15,6 @@ import utils.File.FileIO;
 import utils.GUI.MainImage;
 
 public class BackgroundRemoval {
-    // public static Mat 
-
     private static Rect coordContainObject(Mat srcImage){
         int left = 0, right = 0, top = 0, bottom = 0;
 
@@ -113,7 +108,6 @@ public class BackgroundRemoval {
 
         mask = mm.closing(mask, 2);
         mask = mm.opening(mask, 5);
-        FileIO.saveFile("sample\\out\\test_mask.png", mask, "png", 9);
         List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Imgproc.findContours(mask, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
         double inf = 0;
@@ -143,6 +137,8 @@ public class BackgroundRemoval {
         destImage = MatManager.recolor(destImage, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
 
         destImage = destImage.submat(max_rect);
+        mask = mask.submat(max_rect);
+        FileIO.saveFile("sample\\out\\test_mask.png", mask, "png", 9);
 
         MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, destImage.rows(), destImage.cols());
 

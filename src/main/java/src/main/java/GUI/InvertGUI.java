@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.File.IconLocator;
 import utils.GUI.MainImage;
 import utils.Processing.Invert;
 
@@ -18,7 +19,7 @@ public class InvertGUI extends JButton
 {
 	public InvertGUI()
 	{
-		setIcon(new ImageIcon(FilterGUI.getFilepath(3)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(3)));
 		addActionListener(e -> act());
 	}
 
