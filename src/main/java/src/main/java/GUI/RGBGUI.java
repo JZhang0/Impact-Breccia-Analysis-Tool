@@ -1,5 +1,6 @@
 package src.main.java.GUI;
 
+import utils.GUI.MainImage;
 import utils.Processing.RGB;
 
 import javax.swing.JButton;

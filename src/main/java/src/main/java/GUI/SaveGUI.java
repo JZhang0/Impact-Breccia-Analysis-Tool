@@ -2,6 +2,7 @@ package src.main.java.GUI;
 
 import src.main.java.Settings;
 import utils.File.Save;
+import utils.GUI.MainImage;
 import utils.Processing.Contrast;
 import utils.Processing.RGB;
 

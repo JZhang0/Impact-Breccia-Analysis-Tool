@@ -2,9 +2,11 @@ package src.main.java.GUI;
 
 import javax.swing.*;
 
-public class FillBucketGUI extends JButton
+import utils.GUI.MainImage;
+
+public class Filler extends JButton
 {
-	public FillBucketGUI()
+	public Filler()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(18)));
 		addActionListener(e -> act());
@@ -15,7 +17,7 @@ public class FillBucketGUI extends JButton
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
 			GUI.createGUI();
-			FillBucketGUI.launch();
+			Filler.launch();
 		}
 	}
 

@@ -2,9 +2,11 @@ package src.main.java.GUI;
 
 import javax.swing.*;
 
-public class MagicEraserGUI extends JButton
+import utils.GUI.MainImage;
+
+public class EraserGUI extends JButton
 {
-	public MagicEraserGUI()
+	public EraserGUI()
 	{
 		setIcon(new ImageIcon(FilterGUI.getFilepath(19)));
 		addActionListener(e -> act());
@@ -15,7 +17,7 @@ public class MagicEraserGUI extends JButton
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
 			GUI.createGUI();
-			MagicEraserGUI.launch();
+			EraserGUI.launch();
 		}
 	}
 

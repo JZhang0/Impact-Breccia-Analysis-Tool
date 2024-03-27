@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import utils.File.History;
+import utils.GUI.MainImage;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;

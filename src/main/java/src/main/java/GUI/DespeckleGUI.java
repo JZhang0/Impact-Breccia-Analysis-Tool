@@ -1,25 +1,54 @@
 package src.main.java.GUI;
 
-
-
 import src.main.java.Settings;
-import utils.Processing.Contrast;
-import utils.Processing.Despeckler;
+import utils.GUI.MainImage;
+import utils.Processing.BlurFilter;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class DespeckleGUI extends JButton
 {
+	private static JLabel label;
+	private static JSlider slider;
+	private static JTextField text_field;
+	private static JButton button_auto, button_save;
+
 	private static int despeckle_adjustment_value;
+
+	private static boolean getSetting = false;
+
+	private static void getDespeckleSetting(){
+		getSetting = true;
+		despeckle_adjustment_value = BlurFilter.getMedianKernel();
+
+		if(despeckle_adjustment_value == 0){
+			text_field.setText(String.valueOf(despeckle_adjustment_value));
+		}
+		else{
+			text_field.setText(String.valueOf(despeckle_adjustment_value * 2 - 1));
+		}
+		slider.setValue(despeckle_adjustment_value);
+
+		GUI.render(BlurFilter.addMedian(despeckle_adjustment_value));
+		getSetting = false;
+	}
 
 	public DespeckleGUI()
 	{
@@ -45,92 +74,92 @@ public class DespeckleGUI extends JButton
 		dialog.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		//Slider
-		JSlider slider = new JSlider(Settings.DESPECKLE_MIN, Settings.DESPECKLE_MAX);
+		//Label
+		label = new JLabel("Despeckler size ");
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		dialog.add(label, constraints);
+
+		//Slider
+		slider = new JSlider(Settings.DESPECKLE_MIN, Settings.DESPECKLE_MAX);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
 		constraints.gridy = 0;
 		constraints.gridwidth = 2;
 		dialog.add(slider, constraints);
 
 		//Textfield
-		JTextField text_field = new JTextField(10);
+		text_field = new JTextField(10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.gridx = 2;
+		constraints.gridx = 3;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
 		dialog.add(text_field, constraints);
 
 		//Automate button
-		JButton button_auto = new JButton("Automate");
+		button_auto = new JButton("Automate");
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.gridx = 0;
+		constraints.gridx = 1;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		dialog.add(button_auto, constraints);
 
 		//Confirmation button
-		JButton button = new JButton("Confirm");
+		button_save = new JButton("Confirm");
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.gridx = 1;
+		constraints.gridx = 2;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		dialog.add(button, constraints);
+		dialog.add(button_save, constraints);
 
 		//Set defaults
-		text_field.setText(String.valueOf((Despeckler.getKernel())));
-		slider.setValue((Despeckler.getKernel()));
-
-		//Render the image with despeckling using whatever k size is currently in memory
-		GUI.render(Despeckler.despeckle(Despeckler.getKernel()));
+		getDespeckleSetting();
 
 		//Updating the slider
-		slider.addChangeListener(e ->
-		{
-			despeckle_adjustment_value = slider.getValue();
+		slider.addChangeListener(new ChangeListener(){
+            @Override
+            public void stateChanged(ChangeEvent e) {
+				despeckle_adjustment_value = slider.getValue();
 
-			text_field.setText(String.valueOf(despeckle_adjustment_value));
-		});
+				if(despeckle_adjustment_value == 0){
+					text_field.setText(String.valueOf(despeckle_adjustment_value));
+				}
+				else{
+					text_field.setText(String.valueOf(despeckle_adjustment_value * 2 - 1));
+				}
 
-		//Override the documentListener so we can control what happens when the textfield changes
-		text_field.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				updateTextFieldValue();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				updateTextFieldValue();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				updateTextFieldValue();
-			}
-
-			//When the textfield changes to something valid, update the image rendered on the GUI
-			private void updateTextFieldValue() {
-				if (text_field.getText().matches("\\d+") && Integer.parseInt(text_field.getText()) >= Settings.DESPECKLE_MIN && Integer.parseInt(text_field.getText()) <= Settings.DESPECKLE_MAX)
-				{
-					despeckle_adjustment_value = Integer.parseInt(text_field.getText());
-					GUI.render(Despeckler.despeckle(despeckle_adjustment_value));
+				JSlider source = (JSlider) e.getSource();
+				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.render(BlurFilter.addMedian(despeckle_adjustment_value));
 				}
 			}
-		});
+        });
+
+		//Override the documentListener so we can control what happens when the textfield changes
+		text_field.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                int ksize = Integer.parseInt(text_field.getText()) > 0 ? (Integer.parseInt(text_field.getText()) + 1) / 2 : 0;
+				if (text_field.getText().matches("\\d+") && ksize >= Settings.DESPECKLE_MIN && ksize <= Settings.DESPECKLE_MAX)
+				{
+					slider.setValue(ksize);
+				}
+            }
+        });
 
 		//Automate
 		button_auto.addActionListener(e ->
 		{
-			GUI.render(Despeckler.auto());
-			despeckle_adjustment_value = Contrast.getBeta();
-			text_field.setText(String.valueOf(despeckle_adjustment_value));
+			BlurFilter.auto_median();
+			getDespeckleSetting();
 		});
 
 		//Save
-		button.addActionListener(e ->
+		button_save.addActionListener(e ->
 		{
-			Despeckler.save();
+			BlurFilter.save_median();
 			GUI.destroyGUI();
 			dialog.dispose();
 		});
@@ -140,12 +169,13 @@ public class DespeckleGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				BlurFilter.save_median();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
 			}
 		});
 
-		dialog.setSize(400, 100);
+		dialog.setSize(500, 100);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}

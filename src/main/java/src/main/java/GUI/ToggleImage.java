@@ -1,25 +1,25 @@
 package src.main.java.GUI;
 
-import utils.GUI.Overlay;
+import utils.GUI.MainImage;
+import utils.GUI.Toggle;
 
-public class OverlayGUI
+public class ToggleImage
 {
 	//What type of overlay is currently being displayed?
 	//0 - no overlay
-	//1 - primary overlay (most recent image)
-	//2 - secondary overlay (oldest image using this crop)
+	//1 - main overlay (most recent image)
+	//2 - edge overlay (oldest image using this crop)
 	public static int overlay_type = 0;
 
 	//Overlay the previous image onto the current one
-	public static void primary()
+	public static void toggle_main_image()
 	{
 		if (MainImage.exists())
 		{
 			if (overlay_type != 1)
 			{
-				System.out.println("Primary overlay has been enabled.");
 				overlay_type = 1;
-				Overlay.primary();
+				Toggle.render_anchor_image();
 			}
 			else
 			{
@@ -29,15 +29,15 @@ public class OverlayGUI
 	}
 
 	//Overlay the oldest image onto the current image
-	public static void secondary()
+	public static void toggle_edge_overlay()
 	{
 		if (MainImage.exists())
 		{
 			if (overlay_type != 2)
 			{
-				System.out.println("Secondary overlay has been enabled.");
-				overlay_type = 2;
-				Overlay.secondary();
+				if(Toggle.render_edge_overlay()){
+					overlay_type = 2;
+				}
 			}
 			else
 			{

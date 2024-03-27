@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 
+import utils.GUI.MainImage;
 import utils.GUI.Zoom;
 
 import javax.swing.JButton;

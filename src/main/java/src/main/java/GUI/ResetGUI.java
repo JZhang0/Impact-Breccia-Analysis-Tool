@@ -2,6 +2,7 @@ package src.main.java.GUI;
 
 
 
+import utils.GUI.MainImage;
 import utils.GUI.Pan;
 import utils.GUI.Zoom;
 

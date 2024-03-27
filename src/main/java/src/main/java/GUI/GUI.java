@@ -14,6 +14,7 @@ import utils.File.ImageDropHandler;
 import utils.GUI.Zoom;
 import utils.GUI.Pan;
 import utils.Processing.MatManager;
+import utils.Processing.MorphManager;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -36,6 +37,8 @@ public class GUI extends javax.swing.JFrame
     //Create the GUI for the application
     public GUI()
     {
+        MorphManager.getInstance();
+        
         frame = new JFrame("Impact Breccia Analysis Tool v" + Settings.VERSION);
         frame.setLayout(new BorderLayout());
         frame.setSize(Settings.DEFAULT_WIDTH, Settings.DEFAULT_HEIGHT);
@@ -65,18 +68,18 @@ public class GUI extends javax.swing.JFrame
         JPanel topPanel = new JPanel();
         JButton[] buttons = new JButton[18];
 
-        buttons[0] = new SubBackgroundGUI();
+        buttons[0] = new HelpGUI();
         buttons[1] = new InvertGUI();
         buttons[2] = new GaussGUI();
         buttons[3] = new ContrastGUI();
         buttons[4] = new RGBGUI();
         buttons[5] = new ThresholdGUI();
         buttons[6] = new DespeckleGUI();
-        buttons[7] = new OutliersGUI();
-        buttons[8] = new AutoFillBucketGUI();
+        buttons[7] = new ErosionGUI();
+        buttons[8] = new DilationGUI();
         buttons[9] = new AutomateGUI();
-        buttons[10] = new FillBucketGUI();
-        buttons[11] = new MagicEraserGUI();
+        buttons[10] = new Filler();
+        buttons[11] = new EraserGUI();
         buttons[12] = new ZoomInGUI();
         buttons[13] = new ZoomOutGUI();
         buttons[14] = new ResetGUI();
@@ -188,7 +191,7 @@ public class GUI extends javax.swing.JFrame
     public static void createGUI()
     {
         //Remove the overlay if it is currently enabled
-        OverlayGUI.reset();
+        ToggleImage.reset();
 
         //Block new popups from being created
         popup_available = false;
