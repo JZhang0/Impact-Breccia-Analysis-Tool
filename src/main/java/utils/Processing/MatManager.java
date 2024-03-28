@@ -97,8 +97,8 @@ public class MatManager {
 		return destImage;
 	}
 
-	public static Mat floodFill(Mat srcImage, Point seedPoint, Scalar newVal){
-		Imgproc.floodFill(srcImage, new Mat(), seedPoint, newVal);
+	public static Mat floodFill(Mat srcImage, int x, int y, Scalar newVal){
+		Imgproc.floodFill(srcImage, new Mat(), new Point(x, y), newVal);
 
 		return srcImage;
 	}

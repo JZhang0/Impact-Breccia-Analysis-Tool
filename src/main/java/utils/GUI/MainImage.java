@@ -22,7 +22,7 @@ public class MainImage
 	private static Mat image;
 
 	//This blocks access to any filters until an image has been imported into the application
-	private static boolean exists = false, isGray = false, isBinary = false;
+	private static boolean exists = false, doneThreshold = false, doneSplit = false;
 
 	//Update the image being processed by the application to be new_image
 	public static void setImage(Mat new_image)
@@ -73,19 +73,19 @@ public class MainImage
 	}
 
 	public static boolean checkGray(){
-		return isGray;
+		return doneSplit;
 	}
 
-	public static void setGray(boolean gray){
-		isGray = gray;
+	public static void setSplit(boolean bool){
+		doneSplit = bool;
 	}
 
 	public static boolean checkBinary(){
-		return isBinary;
+		return doneSplit && doneThreshold;
 	}
 
-	public static void setBinary(boolean binary){
-		isBinary = binary;
+	public static void setThreshold(boolean bool){
+		doneThreshold = bool;
 	}
 
 	//Return the filename of the image

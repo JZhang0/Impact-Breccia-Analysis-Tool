@@ -74,9 +74,7 @@ public class Thresholding
 	public static void save()
 	{
 		MainImage.setImage(adjustThreshold(threshold));
-        if(MainImage.checkGray()){
-            MainImage.setBinary(true);
-        }
+        MainImage.setThreshold(true);
 		reset();
 
 		FileIO.export("Threshold");

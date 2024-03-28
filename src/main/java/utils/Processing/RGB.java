@@ -42,7 +42,7 @@ public class RGB
 		if (channel > -1)
 		{
 			MainImage.setImage(split(channel));
-			MainImage.setGray(true);
+			MainImage.setSplit(true);
 
 			FileIO.export("RGB");
 		}

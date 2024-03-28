@@ -8,10 +8,14 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 import org.opencv.core.Mat;
+
 import src.main.java.Settings;
 import utils.File.Hotkeys;
+import utils.File.IconLocator;
 import utils.File.ImageDropHandler;
 import utils.GUI.Zoom;
+import utils.GUI.ClickFloodFill;
+import utils.GUI.MainImage;
 import utils.GUI.Pan;
 import utils.Processing.MatManager;
 import utils.Processing.MorphManager;
@@ -24,6 +28,12 @@ import java.awt.RenderingHints;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Cursor;
+import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.Image;
+import java.awt.Point;
 
 public class GUI extends javax.swing.JFrame
 {
@@ -31,6 +41,11 @@ public class GUI extends javax.swing.JFrame
     private static JPanel buttonPanel;
     private static JPanel mainPanel;
     private static Image current_image = null;
+
+    private static double render_scale = 0.0;
+
+    // 0 for eraser, 1 for filler, -1 for none
+    private static int editing_mode = -1;
 
     private static boolean popup_available = true;
 
@@ -78,7 +93,7 @@ public class GUI extends javax.swing.JFrame
         buttons[7] = new ErosionGUI();
         buttons[8] = new DilationGUI();
         buttons[9] = new AutomateGUI();
-        buttons[10] = new Filler();
+        buttons[10] = new FillerGUI();
         buttons[11] = new EraserGUI();
         buttons[12] = new ZoomInGUI();
         buttons[13] = new ZoomOutGUI();
@@ -106,10 +121,10 @@ public class GUI extends javax.swing.JFrame
     public static void render(Mat newImage)
     {
         //Update the current_image to the new image to be displayed by the GUI
-        current_image = MatManager.matToImage(newImage);
+        Image image = MatManager.matToImage(newImage);
 
         //Scale the image to match the height/width of the main panel
-        current_image = current_image.getScaledInstance(-1, mainPanel.getHeight(), Image.SCALE_DEFAULT);
+        current_image = image.getScaledInstance(-1, mainPanel.getHeight(), Image.SCALE_DEFAULT);
 
         //Render the new current_image
         render();
@@ -125,6 +140,25 @@ public class GUI extends javax.swing.JFrame
         mainPanel.repaint();
     }
 
+    public static Point getImageTopLeft(){
+        if (current_image != null){
+            int scaled_width = (int) (current_image.getWidth(null) * Zoom.getZoom());
+            int scaled_height = (int) (current_image.getHeight(null) * Zoom.getZoom());
+
+            // Calculate the position to center the image
+            int x = (mainPanel.getWidth() - scaled_width) / 2;
+            int y = (mainPanel.getHeight() - scaled_height) / 2;
+
+            return new Point(x + Pan.getX(), y + Pan.getY());
+        }
+        else{
+            return new Point(0, 0);
+        }
+    }
+
+    public static double getImageRenderScale(){
+        return render_scale;
+    }
 
     private static JPanel createMainPanel()
     {
@@ -141,6 +175,8 @@ public class GUI extends javax.swing.JFrame
                     // Calculate the scaled size based on the zoom factor
                     int scaled_width = (int) (current_image.getWidth(null) * Zoom.getZoom());
                     int scaled_height = (int) (current_image.getHeight(null) * Zoom.getZoom());
+
+                    render_scale = (double) scaled_height / MainImage.getImageHeight();
 
                     // Calculate the position to center the image
                     int x = (getWidth() - scaled_width) / 2;
@@ -175,6 +211,9 @@ public class GUI extends javax.swing.JFrame
         //Add image zoom functionality
         Zoom.addMouseListeners(mainPanel);
 
+        //Add image floodfill functionality
+        ClickFloodFill.addMouseListeners(mainPanel);
+
         return mainPanel;
     }
 
@@ -200,5 +239,25 @@ public class GUI extends javax.swing.JFrame
     public static void destroyGUI()
     {
         popup_available = true;
+    }
+
+    public static boolean isEditing(int modeToCheck){
+        return editing_mode == modeToCheck;
+    }
+
+    public static void setEditing(int mode){
+        editing_mode = mode;
+    }
+
+    public static void changeCursor(int index){
+        if(index == -1){
+            frame.getRootPane().setCursor(Cursor.getDefaultCursor());
+        }
+        else{
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Image image = toolkit.getImage(IconLocator.getCursorPath(index));
+            Cursor c = toolkit.createCustomCursor(image , new Point(0, 0), "cur");
+            frame.getRootPane().setCursor(c);
+        }
     }
 }

@@ -8,11 +8,11 @@ import utils.GUI.ClickFloodFill;
 import utils.GUI.FloodFillImage;
 import utils.GUI.MainImage;
 
-public class EraserGUI extends JButton
+public class FillerGUI extends JButton
 {
-	public EraserGUI()
+	public FillerGUI()
 	{
-		setIcon(new ImageIcon(IconLocator.getIconPath(19)));
+		setIcon(new ImageIcon(IconLocator.getIconPath(18)));
 		addActionListener(e -> act());
 	}
 
@@ -21,20 +21,20 @@ public class EraserGUI extends JButton
 		if (MainImage.exists() && MainImage.checkBinary() && GUI.isEditing(-1))
 		{
 			GUI.createGUI();
-			GUI.setEditing(0);
-			GUI.changeCursor(0);
-			ClickFloodFill.setMode(ColorBGRValue.BGR_WHITE);
+			GUI.setEditing(1);
+			GUI.changeCursor(1);
+			ClickFloodFill.setMode(ColorBGRValue.BGR_BLACK);
 			FloodFillImage.setImageMat(MainImage.getImageMat());
 
-			System.out.println("magic eraser tool has been launched");
+			System.out.println("fill bucket tool has been launched");
 		}
-		else if(GUI.isEditing(0)){
+		else if(GUI.isEditing(1)){
 			GUI.destroyGUI();
 			GUI.setEditing(-1);
 			GUI.changeCursor(-1);
-			ClickFloodFill.save("eraser");
+			ClickFloodFill.save("filler");
 
-			System.out.println("magic eraser tool has been closed");
+			System.out.println("fill bucket tool has been closed");
 		}
 	}
 }

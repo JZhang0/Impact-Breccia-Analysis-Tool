@@ -9,4 +9,8 @@ public class IconLocator
 	{
 		return "icons/" + Settings.ICONS[icon_id] + ".png";
 	}
+
+	public static String getCursorPath(int cursor_id){
+		return "icons/" + Settings.CURSORS[cursor_id] + ".png";
+	}
 }
