@@ -14,15 +14,14 @@ public class Toggle
 	//Overlay the previous image onto the current one
 	public static void render_anchor_image()
 	{
-		System.out.println("Primary overlay has been enabled.");
-		GUI.render(AnchorImage.getImageMat());
+		if(AnchorImage.exists())
+			GUI.render(AnchorImage.getImageMat());
 	}
 
 	//Overlay the first image onto the current one
 	public static boolean render_edge_overlay()
 	{
 		if(MainImage.checkGray()){
-			System.out.println("Secondary overlay has been enabled.");
 			MorphManager mm = MorphManager.getInstance();
 			MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageWidth(), MainImage.getImageHeight());
 

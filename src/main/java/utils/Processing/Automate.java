@@ -1,11 +1,8 @@
 package utils.Processing;
 
 import org.opencv.core.Mat;
-import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 
-import src.main.java.GUI.DilationGUI;
-import utils.Definition.ColorBGRValue;
 import utils.File.FileIO;
 import utils.GUI.MainImage;
 
@@ -13,18 +10,20 @@ public class Automate
 {
 	private static Mat original_image, contrast_image, gray_image, threshold_image, despeckle_image, morph_image;
 
+	public static void setImage(Mat image){
+		original_image = image;
+	}
+
 	public static void run(int mode)
 	{
 		MorphManager mm = MorphManager.getInstance();
 		MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageMat().rows(), MainImage.getImageMat().cols());
 
-        Mat main_image;
-
-        main_image = original_image = MainImage.getImageMat();
-
-        contrast_image = Contrast.autoContrast(main_image, 5.0);
+        contrast_image = Contrast.autoContrast(original_image, 5.0);
 
         gray_image = MatManager.RGBtoGray(contrast_image);
+
+		MainImage.setSplit(true);
 
 		if(mode == 1){
 			threshold_image = Thresholding.autoGrayThreshold_dark(gray_image, 255, Imgproc.THRESH_BINARY);
@@ -33,7 +32,9 @@ public class Automate
 			threshold_image = Thresholding.autoGrayThreshold_bright(gray_image, 255, Imgproc.THRESH_BINARY);
 		}
 
-        int ksize = (int) Math.floor((double)threshold_image.cols() / 2000 + (double)threshold_image.rows() / 1000);
+		MainImage.setThreshold(true);
+
+        int ksize = 2 * (int) Math.floor((double)threshold_image.cols() / 2000 + (double)threshold_image.rows() / 1000) - 1;
         despeckle_image = BlurFilter.MedianBlur(threshold_image, ksize);
 
 

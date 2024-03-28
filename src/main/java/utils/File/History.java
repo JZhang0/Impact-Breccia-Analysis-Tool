@@ -24,6 +24,10 @@ public class History
 		return version_history_index;
 	}
 
+	public static void resetVersion(){
+		version_history_index = 0;
+	}
+
 	//Increase the version when we add a new filter
 	public static void increaseVersion()
 	{

@@ -62,14 +62,18 @@ public class AutomateGUI extends JButton
 		constraints.gridwidth = 1;
 		dialog.add(button_save, constraints);
 
+		Automate.setImage(MainImage.getImageMat());
+
 		button_auto_1.addActionListener(e ->
 		{
+			Automate.reset();
 			Automate.run(1);
 			GUI.render(MainImage.getImageMat());
 		});
 
 		button_auto_2.addActionListener(e ->
 		{
+			Automate.reset();
 			Automate.run(2);
 			GUI.render(MainImage.getImageMat());
 		});

@@ -1,6 +1,8 @@
 package utils.File;
 
 import src.main.java.GUI.GUI;
+import src.main.java.GUI.SubBackgroundGUI;
+// import src.main.java.GUI.SubBackgroundGUI;
 import utils.GUI.AnchorImage;
 import utils.GUI.MainImage;
 import utils.Processing.BackgroundRemoval;
@@ -44,18 +46,18 @@ public class ImageDropHandler extends TransferHandler
 			//Insert the file if the user imported a valid file
 			if (file_to_process != null)
 			{
+				History.resetVersion();
+				
 				MainImage.setImage(FileIO.readFile(file_to_process.getAbsolutePath()));
 				MainImage.setFilename(file_to_process.getName().substring(0, file_to_process.getName().lastIndexOf('.')));
 				MainImage.setTimestamp(System.currentTimeMillis());
-				GUI.render(MainImage.getImageMat());
 				FileIO.export("default");
 
-				GUI.createGUI();
-				BackgroundRemoval.save();
-				GUI.render(MainImage.getImageMat());
-				GUI.destroyGUI();
+				// AnchorImage.setImageMat(MainImage.getImageMat());
+				AnchorImage.setImageMat(BackgroundRemoval.subtractBackground());
+				GUI.render(AnchorImage.getImageMat());
 
-				AnchorImage.getFromMain();
+				SubBackgroundGUI.act();
 			}
 
 			return true;

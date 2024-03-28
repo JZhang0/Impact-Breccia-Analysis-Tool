@@ -12,85 +12,10 @@ import org.opencv.imgproc.Imgproc;
 
 import utils.Definition.ColorBGRValue;
 import utils.File.FileIO;
+import utils.GUI.AnchorImage;
 import utils.GUI.MainImage;
 
 public class BackgroundRemoval {
-    private static Rect coordContainObject(Mat srcImage){
-        int left = 0, right = 0, top = 0, bottom = 0;
-
-        for (int y = 0; y < srcImage.rows(); y++){
-            for (int x = 0; x < srcImage.cols(); x++){
-                double average = Arrays.stream(srcImage.get(y, x)).average().getAsDouble();
-
-                if(average != 255.0 && average != 0.0){
-                    if(top == 0){
-                        top = y;
-                    }
-                    else{
-                        bottom = y;
-                    }
-                }
-            }
-        }
-        for (int x = 0; x < srcImage.cols(); x++){
-            for (int y = 0; y < srcImage.rows(); y++){
-                double average = Arrays.stream(srcImage.get(y, x)).average().getAsDouble();
-
-                if(average != 255.0 && average != 0.0){
-                    if(left == 0){
-                        left = x;
-                    }
-                    else{
-                        right = x;
-                    }
-                }
-            }
-        }
-        System.out.println(left + " | " + top + " | " + (right-left) + " | " + (bottom-top));
-        return new Rect(left, top, right-left, bottom-top);
-    }
-
-    public static Mat removeBackground2(Mat srcImage, Rect resizeRect) {
-        MorphManager mm = MorphManager.getInstance();
-        MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, srcImage.rows(), srcImage.cols());
-
-        Mat destImage = MatManager.createMatWithProperty(srcImage);
-        Mat mask = new Mat();
-
-        srcImage.copyTo(mask);
-        mask = MatManager.flipColor(srcImage);
-        mask = MatManager.recolor(mask, ColorBGRValue.BGR_WHITE, ColorBGRValue.BGR_WHITE, ColorBGRValue.BGR_BLACK);
-
-        mask = MatManager.RGBtoGray(mask);
-        mask = EdgeDetection.autoCannyEdgeDetection(mask, 5, true, ColorBGRValue.BGR_WHITE);
-
-        mask = mm.closing(mask, 2);
-        mask = mm.opening(mask, 20);
-        mask = mm.dilation(mask, 2);
-        mask = MatManager.floodFill(mask, new Point(0, 0), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(mask.cols()-1, 0), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(0, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(mask.cols()-1, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
-        mask = mm.erosion(mask, 2);
-
-        mask = MatManager.recolor(mask, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
-        mask = MatManager.recolor(mask, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_BLACK);
-
-        srcImage.copyTo(destImage, mask);
-        destImage = MatManager.recolor(destImage, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
-
-        Rect rect = coordContainObject(destImage);
-        destImage = destImage.submat(rect);
-        resizeRect.x = rect.x;
-        resizeRect.y = rect.y;
-        resizeRect.height = rect.height;
-        resizeRect.width = rect.width;
-
-        MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, destImage.rows(), destImage.cols());
-
-        return destImage;
-    }
-
     public static Mat removeBackground(Mat srcImage, Rect resizeRect) {
         MorphManager mm = MorphManager.getInstance();
         MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, srcImage.rows(), srcImage.cols());
@@ -125,20 +50,20 @@ public class BackgroundRemoval {
 
         mask = MatManager.GraytoRGB(mask);
 
-        mask = MatManager.floodFill(mask, new Point(0, 0), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(mask.cols()-1, 0), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(0, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
-        mask = MatManager.floodFill(mask, new Point(mask.cols()-1, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
+        // mask = MatManager.floodFill(mask, new Point(0, 0), ColorBGRValue.BGR_MAGENTA);
+        // mask = MatManager.floodFill(mask, new Point(mask.cols()-1, 0), ColorBGRValue.BGR_MAGENTA);
+        // mask = MatManager.floodFill(mask, new Point(0, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
+        // mask = MatManager.floodFill(mask, new Point(mask.cols()-1, mask.rows()-1), ColorBGRValue.BGR_MAGENTA);
 
-        mask = MatManager.recolor(mask, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
-        mask = MatManager.recolor(mask, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_BLACK);
+        // mask = MatManager.recolor(mask, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
+        // mask = MatManager.recolor(mask, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_MAGENTA, ColorBGRValue.BGR_BLACK);
 
         srcImage.copyTo(destImage, mask);
+        FileIO.saveFile("sample\\out\\test_mask.png", destImage, "png", 9);
         destImage = MatManager.recolor(destImage, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_BLACK, ColorBGRValue.BGR_WHITE);
 
         destImage = destImage.submat(max_rect);
         mask = mask.submat(max_rect);
-        FileIO.saveFile("sample\\out\\test_mask.png", mask, "png", 9);
 
         MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, destImage.rows(), destImage.cols());
 
@@ -155,7 +80,7 @@ public class BackgroundRemoval {
     //Save the image with no background permanently
     public static void save()
     {
-        MainImage.setImage(subtractBackground());
+        MainImage.setImage(AnchorImage.getImageMat());
 
         FileIO.export("SubBackground");
     }
