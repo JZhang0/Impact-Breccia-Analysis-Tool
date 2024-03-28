@@ -41,7 +41,7 @@ public class SaveGUI extends JButton
 
 	public static void launch()
 	{
-		JDialog dialog = new JDialog(GUI.getFrame(), "Export processed image", true);
+		JDialog dialog = new JDialog(GUI.getFrame(), "Export Result", true);
 		dialog.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		ButtonGroup group = new ButtonGroup();

@@ -51,7 +51,6 @@ public class ToggleImage
 	{
 		if (MainImage.exists() && overlay_type != 0)
 		{
-			System.out.println("Overlay has been disabled.");
 			overlay_type = 0;
 			GUI.render(MainImage.getImageMat());
 		}

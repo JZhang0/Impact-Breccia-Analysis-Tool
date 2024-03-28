@@ -45,9 +45,13 @@ public class InvertGUI extends JButton
 		//Save
 		button.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Invert.save();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
@@ -55,8 +59,12 @@ public class InvertGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 

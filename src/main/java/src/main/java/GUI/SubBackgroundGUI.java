@@ -35,9 +35,13 @@ public class SubBackgroundGUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				GUI.changeCursor(2);
+
 				GUI.destroyGUI();
 				dialog.dispose();
                 BackgroundRemoval.save();
+
+				GUI.changeCursor(-1);
 			}
 		});
 
@@ -46,11 +50,15 @@ public class SubBackgroundGUI
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeCursor(2);
+
                 AnchorImage.setImageMat(MainImage.getImageMat());
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
 				
 				FileIO.export("default", false, false);
+
+				GUI.changeCursor(-1);
 			}
 		});
 

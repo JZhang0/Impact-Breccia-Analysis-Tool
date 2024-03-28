@@ -21,9 +21,11 @@ public class DilationGUI extends JButton
 	{
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
+			GUI.changeCursor(2);
+			
 			GUI.createGUI();
 			MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageWidth(), MainImage.getImageHeight());
-			
+
 			MainImage.flipColor();
 			MorphManager.applyDilation();
 			MainImage.flipColor();
@@ -31,6 +33,8 @@ public class DilationGUI extends JButton
 			MorphManager.save("d");
 			GUI.render(MainImage.getImageMat());
 			GUI.destroyGUI();
+
+			GUI.changeCursor(-1);
 		}
 	}
 }

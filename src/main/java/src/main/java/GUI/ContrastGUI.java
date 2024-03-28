@@ -255,16 +255,24 @@ public class ContrastGUI extends JButton
 		//Automate
 		button_auto.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Contrast.auto();
 			getContrastSetting();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Save
 		button_save.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Contrast.save();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
@@ -272,9 +280,13 @@ public class ContrastGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				Contrast.reset();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 

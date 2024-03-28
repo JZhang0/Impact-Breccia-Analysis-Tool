@@ -83,9 +83,12 @@ public class RGBGUI extends JButton
 		//Automate
 		button_auto.addActionListener(e ->
 		{
-			GUI.render(RGB.auto());
+			GUI.changeComponentCursor(2, dialog);
 
+			GUI.render(RGB.auto());
 			buttons[RGB.getChannel()].setSelected(true);
+
+			GUI.changeCursor(-1);
 		});
 
 		button4.setFocusable(false);
@@ -94,9 +97,13 @@ public class RGBGUI extends JButton
 		//Save
 		button4.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			RGB.save();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeCursor(-1);
 		});
 
 		//Detect when the dialog closes and reset the channel preview if no channel has been saved
@@ -104,9 +111,13 @@ public class RGBGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				RGB.resetChannel();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeCursor(-1);
 			}
 		});
 

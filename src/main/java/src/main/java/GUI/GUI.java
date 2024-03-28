@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import org.opencv.core.Mat;
 
 import src.main.java.Settings;
+import utils.File.FileIO;
 import utils.File.Hotkeys;
 import utils.File.IconLocator;
 import utils.File.ImageDropHandler;
@@ -30,9 +31,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Cursor;
 import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.Image;
+import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Point;
 
 public class GUI extends javax.swing.JFrame
@@ -69,9 +70,19 @@ public class GUI extends javax.swing.JFrame
         //Add hotkey support
         new Hotkeys();
 
+        FileIO.resetExportFolder();
+
         //Set application size
         if (Settings.LAUNCH_MAXIMIZED)
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				FileIO.deleteExportFolder();
+			}
+		});
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -257,7 +268,20 @@ public class GUI extends javax.swing.JFrame
             Toolkit toolkit = Toolkit.getDefaultToolkit();
             Image image = toolkit.getImage(IconLocator.getCursorPath(index));
             Cursor c = toolkit.createCustomCursor(image , new Point(0, 0), "cur");
+
             frame.getRootPane().setCursor(c);
+        }
+    }
+
+    public static void changeComponentCursor(int index, Component comp){
+        if(index == -1){
+            comp.setCursor(Cursor.getDefaultCursor());
+        }
+        else{
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Image image = toolkit.getImage(IconLocator.getCursorPath(index));
+            Cursor c = toolkit.createCustomCursor(image , new Point(0, 0), "cur");
+            comp.setCursor(c);
         }
     }
 }

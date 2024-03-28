@@ -152,16 +152,24 @@ public class GaussGUI extends JButton
 		//Automate
 		button_auto.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			BlurFilter.auto_gaussian();
 			getGaussianSetting();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Save
 		button_save.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			BlurFilter.save_gaussian();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
@@ -169,9 +177,13 @@ public class GaussGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				BlurFilter.resetGaussian();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 

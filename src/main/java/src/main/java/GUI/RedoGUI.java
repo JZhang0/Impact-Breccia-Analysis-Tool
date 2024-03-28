@@ -21,7 +21,11 @@ public class RedoGUI extends JButton
 	{
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
+			GUI.changeCursor(2);
+
 			History.redo();
+
+			GUI.changeCursor(-1);
 		}
 	}
 }

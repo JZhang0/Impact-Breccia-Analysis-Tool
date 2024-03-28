@@ -145,23 +145,35 @@ public class ThresholdGUI extends JButton
 		//Automate
 		button_auto_bright.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			GUI.render(Thresholding.auto_bright());
 			getThresholdSetting();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Automate
 		button_auto_dark.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			GUI.render(Thresholding.auto_dark());
 			getThresholdSetting();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Save
 		button_save.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Thresholding.save();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to invert colours
@@ -169,9 +181,13 @@ public class ThresholdGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				Thresholding.reset();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 

@@ -153,16 +153,24 @@ public class DespeckleGUI extends JButton
 		//Automate
 		button_auto.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			BlurFilter.auto_median();
 			getDespeckleSetting();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Save
 		button_save.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			BlurFilter.save_median();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to despeckle
@@ -170,9 +178,13 @@ public class DespeckleGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				BlurFilter.resetMedian();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 

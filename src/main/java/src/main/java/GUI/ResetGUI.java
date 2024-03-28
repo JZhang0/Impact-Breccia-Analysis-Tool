@@ -24,8 +24,12 @@ public class ResetGUI extends JButton
 	{
 		if (MainImage.exists() && GUI.canCreateGUI())
 		{
+			GUI.changeCursor(2);
+
 			Zoom.zoomReset();
 			Pan.panReset();
+
+			GUI.changeCursor(-1);
 		}
 	}
 }

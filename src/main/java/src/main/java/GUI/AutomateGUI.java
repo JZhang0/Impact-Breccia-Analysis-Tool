@@ -66,23 +66,35 @@ public class AutomateGUI extends JButton
 
 		button_auto_1.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Automate.reset();
 			Automate.run(1);
 			GUI.render(MainImage.getImageMat());
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		button_auto_2.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Automate.reset();
 			Automate.run(2);
 			GUI.render(MainImage.getImageMat());
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		button_save.addActionListener(e ->
 		{
+			GUI.changeComponentCursor(2, dialog);
+
 			Automate.save();
 			GUI.destroyGUI();
 			dialog.dispose();
+
+			GUI.changeComponentCursor(-1, dialog);
 		});
 
 		//Detect when the dialog closes. Reset the preview if the user doesn't want to launch the automate alg
@@ -90,9 +102,13 @@ public class AutomateGUI extends JButton
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
+				GUI.changeComponentCursor(2, dialog);
+
 				Automate.reset();
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+
+				GUI.changeComponentCursor(-1, dialog);
 			}
 		});
 
