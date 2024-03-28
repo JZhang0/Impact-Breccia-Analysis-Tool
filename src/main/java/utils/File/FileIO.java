@@ -90,7 +90,7 @@ public class FileIO {
 		return Imgcodecs.imwrite(filePath, srcImage, params);
     }
 
-    public static void export(String filter)
+    public static void export(String filter, boolean isSplit, boolean isThreshold)
     {
         //Ensure that the filepath exists before progressing
         File folder = new File(getFilepath());
@@ -99,14 +99,13 @@ public class FileIO {
             folder.mkdirs();
         }
 
-        String filename = MainImage.getFilename() + "_" + History.getVersion() + "_" + filter + ".tif";
+        String filename = MainImage.getFilename() + "_" + History.getExportIndex() + "_" + filter + ".tif";
+
+        //Increase the version history of this filter edit so we know what to roll back to on an undo
+        History.addFilename(filename, isSplit, isThreshold);
 
         //Save the file into the correct directory
         saveFile(getFilepath() + filename, MainImage.getImageMat(), "tif", TIF_COMPRESSION_LZW);
-
-        //Increase the version history of this filter edit so we know what to roll back to on an undo
-        History.increaseVersion();
-        History.addFilename(filename);
     }
 
     //Delete an image file

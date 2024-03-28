@@ -82,6 +82,6 @@ public class BackgroundRemoval {
     {
         MainImage.setImage(AnchorImage.getImageMat());
 
-        FileIO.export("SubBackground");
+        FileIO.export("SubBackground", false, false);
     }
 }

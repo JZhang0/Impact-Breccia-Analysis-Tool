@@ -44,7 +44,7 @@ public class RGB
 			MainImage.setImage(split(channel));
 			MainImage.setSplit(true);
 
-			FileIO.export("RGB");
+			FileIO.export("RGB", true, false);
 		}
 	}
 

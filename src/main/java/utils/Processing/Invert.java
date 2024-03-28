@@ -25,6 +25,6 @@ public class Invert
 	{
 		MainImage.setImage(invert());
 
-		FileIO.export("Invert");
+		FileIO.export("Invert", false, false);
 	}
 }

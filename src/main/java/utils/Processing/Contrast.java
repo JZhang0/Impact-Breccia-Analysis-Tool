@@ -136,7 +136,7 @@ public class Contrast
         reset();
 
         //Export for history
-        FileIO.export("Contrast");
+        FileIO.export("Contrast", false, false);
     }
 
     public static Mat autoContrast(Mat srcImage, double gamma)

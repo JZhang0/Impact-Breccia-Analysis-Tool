@@ -1,6 +1,7 @@
 package utils.GUI;
 
 import src.main.java.GUI.GUI;
+import src.main.java.GUI.ToggleImage;
 import utils.Definition.ColorBGRValue;
 import utils.File.FileIO;
 import utils.Processing.MatManager;
@@ -68,6 +69,7 @@ public class ClickFloodFill {
                         if(relative_position.x >= 0 && relative_position.x <= MainImage.getImageWidth() && relative_position.y >= 0 && relative_position.y <= MainImage.getImageHeight()){
                             System.out.println("FloodFill position on actual image: " + relative_position.x + ", " + relative_position.y);
                             FloodFillImage.setImageMat(MatManager.floodFill(FloodFillImage.getImageMat(), relative_position.x, relative_position.y, color));
+							ToggleImage.reset();
                             GUI.render(FloodFillImage.getImageMat());
                             isEdited = true;
                         }
@@ -87,7 +89,7 @@ public class ClickFloodFill {
         GUI.render(MainImage.getImageMat());
 
         if(isEdited){
-            FileIO.export(operation);
+            FileIO.export(operation, false, false);
             isEdited = false;
         }
     }

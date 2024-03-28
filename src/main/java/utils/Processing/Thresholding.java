@@ -77,6 +77,6 @@ public class Thresholding
         MainImage.setThreshold(true);
 		reset();
 
-		FileIO.export("Threshold");
+		FileIO.export("Threshold", false, true);
 	}
 }

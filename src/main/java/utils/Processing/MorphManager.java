@@ -114,6 +114,6 @@ public class MorphManager {
 	}
 
     public static void save(String op){
-        FileIO.export(op);
+        FileIO.export(op, false, false);
     }
 }

@@ -1,6 +1,7 @@
 package src.main.java.GUI;
 
 import utils.Processing.BackgroundRemoval;
+import utils.File.FileIO;
 import utils.GUI.AnchorImage;
 import utils.GUI.MainImage;
 
@@ -48,6 +49,8 @@ public class SubBackgroundGUI
                 AnchorImage.setImageMat(MainImage.getImageMat());
 				GUI.render(MainImage.getImageMat());
 				GUI.destroyGUI();
+				
+				FileIO.export("default", false, false);
 			}
 		});
 

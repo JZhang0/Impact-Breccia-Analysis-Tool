@@ -108,7 +108,7 @@ public class BlurFilter
 		MainImage.setImage(addGauss(gaussian_kernel));
 		resetGaussian();
 
-		FileIO.export("Gauss");
+		FileIO.export("Gauss", false, false);
 	}
 
 	public static void save_median()
@@ -116,6 +116,6 @@ public class BlurFilter
 		MainImage.setImage(addMedian(median_kernel));
 		resetMedian();
 
-		FileIO.export("Despeckle");
+		FileIO.export("Despeckle", false, false);
 	}
 }

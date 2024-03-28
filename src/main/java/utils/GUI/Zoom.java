@@ -4,11 +4,6 @@ import src.main.java.Settings;
 import src.main.java.GUI.GUI;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 
 //Controls the GUI's zoom functionality
 public class Zoom

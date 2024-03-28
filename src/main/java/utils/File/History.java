@@ -13,40 +13,42 @@ import java.util.List;
 public class History
 {
 	//This list stores the filename of each individual file containing a filter's output
-	private static List<String> filenames = new ArrayList<>();
+	private static List<String> filenames = new ArrayList<String>();
+	private static List<Boolean> grayHistory = new ArrayList<Boolean>(), binaryHistory = new ArrayList<Boolean>();
 
 	//The position in the filter history that we are currently at
-	private static int version_history_index = 0;
+	private static int version_history_index = -1;
 
 	//Get our current position in the filter list's history
-	public static int getVersion()
+	public static int getExportIndex()
 	{
-		return version_history_index;
+		return version_history_index + 1;
 	}
 
-	public static void resetVersion(){
-		version_history_index = 0;
+	public static void reset(){
+		version_history_index = -1;
+		filenames.clear();
 	}
 
-	//Increase the version when we add a new filter
-	public static void increaseVersion()
+	private static Mat getIndexImage()
 	{
-		version_history_index++;
-	}
-
-	//Decrease the version when we undo a filter
-	public static void decreaseVersion()
-	{
-		version_history_index--;
+		return FileIO.readFile(FileIO.getFilepath() + filenames.get(version_history_index));
 	}
 
 	//Undo the previous filter and go back to the previous filter's job
 	public static void undo()
 	{
-		if (History.getVersion() > 1)
+		if (version_history_index > 0)
 		{
-			History.decreaseVersion();
-			MainImage.setImage(getPreviousImage(1));
+			if(grayHistory.get(version_history_index) == true){
+				MainImage.setSplit(false);
+			}
+			else if(binaryHistory.get(version_history_index) == true){
+				MainImage.setThreshold(false);
+			}
+
+			version_history_index--;
+			MainImage.setImage(getIndexImage());
 			GUI.render(MainImage.getImageMat());
 		}
 	}
@@ -54,41 +56,46 @@ public class History
 	//Redo the previously undone change and go back to the present changes
 	public static void redo()
 	{
-		if (History.getVersion() < filenames.size())
+		if (version_history_index < filenames.size() - 1)
 		{
-			History.increaseVersion();
-			MainImage.setImage(getPreviousImage(2));
+			version_history_index++;
+			
+			if(grayHistory.get(version_history_index) == true){
+				MainImage.setSplit(true);
+			}
+			else if(binaryHistory.get(version_history_index) == true){
+				MainImage.setThreshold(true);
+			}
+
+			MainImage.setImage(getIndexImage());
 			GUI.render(MainImage.getImageMat());
 		}
 	}
 
-	public static Mat getPreviousImage(int back)
-	{
-		if (back < 2)
-			return getOriginalImage();
-		else
-			return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - back));
-	}
-
 	public static Mat getOriginalImage()
 	{
-		return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getVersion() - version_history_index));
+		return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getExportIndex() - version_history_index));
 	}
 
 	//Add a filename to the history list
 	//If we detect here that we are overwriting a filter, then erase the future history since we're not going with those filters anymore
-	public static void addFilename(String new_filename)
+	public static void addFilename(String new_filename, boolean isSplit, boolean isThreshold)
 	{
-		int filenames_size = filenames.size();
-
 		//If we used undo and are now doing a new operation, remove the history after this point
-		for (int i = filenames_size; i >= version_history_index; i--)
+		for (int i = filenames.size() - 1; i > version_history_index; i--)
 		{
-			FileIO.delete(filenames.get(filenames.size() - 1));
-			filenames.remove(filenames.size() - 1);
+			FileIO.delete(filenames.get(i));
+			filenames.remove(i);
+			grayHistory.remove(i);
+			binaryHistory.remove(i);
 		}
 
 		//Add the new filtered image to the filter list
 		filenames.add(new_filename);
+		grayHistory.add(isSplit);
+		binaryHistory.add(isThreshold);
+		System.out.println(filenames + " | " + isSplit + " | " + isThreshold);
+
+		version_history_index = filenames.size() - 1;
 	}
 }

@@ -7,6 +7,7 @@ import utils.File.IconLocator;
 import utils.GUI.ClickFloodFill;
 import utils.GUI.FloodFillImage;
 import utils.GUI.MainImage;
+import utils.GUI.Toggle;
 
 public class EraserGUI extends JButton
 {
@@ -33,6 +34,7 @@ public class EraserGUI extends JButton
 			GUI.setEditing(-1);
 			GUI.changeCursor(-1);
 			ClickFloodFill.save("eraser");
+			ToggleImage.reset();
 
 			System.out.println("magic eraser tool has been closed");
 		}

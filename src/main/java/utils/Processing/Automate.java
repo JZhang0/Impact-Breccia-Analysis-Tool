@@ -52,18 +52,18 @@ public class Automate
 		original_image = morph_image;
 
 		MainImage.setImage(contrast_image);
-		FileIO.export("Contrast");
+		FileIO.export("Contrast", false, false);
 
 		MainImage.setImage(gray_image);
-		FileIO.export("Gray");
+		FileIO.export("Gray", true, false);
 
 		MainImage.setImage(threshold_image);
-		FileIO.export("Threshold");
+		FileIO.export("Threshold", false, true);
 
 		MainImage.setImage(despeckle_image);
-		FileIO.export("Despeckle");
+		FileIO.export("Despeckle", false, false);
 
 		MainImage.setImage(morph_image);
-		FileIO.export("Morph");
+		FileIO.export("Morph", false, false);
 	}
 }
