@@ -132,7 +132,7 @@ public class FileIO {
     //Get the entire filepath that is used to store this image's filter history
     public static String getFilepath()
     {
-        return "Exports\\";
+        return "Exports" + File.separator;
     }
 
     public static void resetExportFolder(){

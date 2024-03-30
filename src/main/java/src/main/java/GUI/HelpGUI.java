@@ -16,17 +16,16 @@
 package src.main.java.GUI;
 
 import utils.File.IconLocator;
-import utils.GUI.MainImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JDialog;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 import java.awt.GridLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -48,7 +47,7 @@ public class HelpGUI extends JButton
 
 	public static void act()
 	{
-		if (MainImage.exists() && GUI.canCreateGUI())
+		if (GUI.canCreateGUI())
 		{
 			GUI.createGUI();
 			HelpGUI.launch();
@@ -62,7 +61,6 @@ public class HelpGUI extends JButton
 
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.setBackground(Color.WHITE);
 
 		String[] keyActions = {
             "P: AUTOMATE",
@@ -82,11 +80,12 @@ public class HelpGUI extends JButton
             "Shift: SECONDARY OVERLAY",
             "Minus: ZOOM OUT",
             "Equals: ZOOM IN",
-            "0: RESET PAN AND ZOOM"
+            "0: RESET PAN AND ZOOM",
+			"Created by: Yifei Zhang, Nicolas Louis Jacobs, Yuhan Zhang",
         };
 
         for (String keyAction : keyActions) {
-            panel.add(new JLabel(keyAction));
+            panel.add(new JLabel(keyAction, SwingConstants.CENTER));
         }
 
 		dialog.addWindowListener(new WindowAdapter() {
@@ -98,7 +97,7 @@ public class HelpGUI extends JButton
 		});
 
 		dialog.add(panel);
-		dialog.setSize(300, 800);
+		dialog.setSize(400, 800);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
