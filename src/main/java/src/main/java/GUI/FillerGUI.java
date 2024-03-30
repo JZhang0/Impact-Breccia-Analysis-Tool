@@ -15,7 +15,8 @@
  */
 package src.main.java.GUI;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 import utils.Definition.ColorBGRValue;
 import utils.File.IconLocator;

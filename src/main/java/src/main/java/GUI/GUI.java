@@ -15,15 +15,6 @@
  */
 package src.main.java.GUI;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-
-import org.opencv.core.Mat;
-
 import src.main.java.Settings;
 import utils.File.FileIO;
 import utils.File.Hotkeys;
@@ -35,6 +26,15 @@ import utils.GUI.MainImage;
 import utils.GUI.Pan;
 import utils.Processing.MatManager;
 import utils.Processing.MorphManager;
+
+import org.opencv.core.Mat;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

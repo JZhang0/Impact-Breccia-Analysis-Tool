@@ -21,8 +21,18 @@ import utils.File.IconLocator;
 import utils.File.Save;
 import utils.GUI.MainImage;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.JDialog;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;
+import javax.swing.JFileChooser;
+
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;

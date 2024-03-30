@@ -15,13 +15,13 @@
  */
 package utils.Processing;
 
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-
 import utils.Calculation.HistCalculator;
 import utils.File.FileIO;
 import utils.GUI.MainImage;
+
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
 
 //Update the contrast of the image
 public class Contrast

@@ -18,7 +18,7 @@ package utils.GUI;
 import src.main.java.Settings;
 import src.main.java.GUI.GUI;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 //Controls the GUI's zoom functionality
 public class Zoom

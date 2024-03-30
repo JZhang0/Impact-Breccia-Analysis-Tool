@@ -15,13 +15,13 @@
  */
 package utils.Processing;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-
 import utils.File.FileIO;
 import utils.GUI.MainImage;
 
 import java.util.ArrayList;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 
 public class RGB
 {

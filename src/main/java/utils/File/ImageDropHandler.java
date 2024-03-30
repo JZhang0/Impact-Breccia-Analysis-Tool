@@ -22,13 +22,15 @@ import utils.GUI.MainImage;
 import utils.Processing.BackgroundRemoval;
 import src.main.java.Settings;
 
-import javax.swing.TransferHandler;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import javax.swing.TransferHandler;
+
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 
 public class ImageDropHandler extends TransferHandler
 {

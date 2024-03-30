@@ -15,11 +15,11 @@
  */
 package utils.Calculation;
 
+import utils.Processing.MatManager;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDouble;
-
-import utils.Processing.MatManager;
 
 public class HistCalculator {
     private Mat m_image;

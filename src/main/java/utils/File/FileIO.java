@@ -15,6 +15,8 @@
  */
 package utils.File;
 
+import utils.GUI.MainImage;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +24,6 @@ import java.util.Map;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.imgcodecs.Imgcodecs;
-
-import utils.GUI.MainImage;
 
 public class FileIO {
 

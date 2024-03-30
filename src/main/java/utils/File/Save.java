@@ -15,14 +15,7 @@
  */
 package utils.File;
 
-import java.io.File;
-import java.util.Arrays;
-
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-
 import src.main.java.Settings;
-import src.main.java.GUI.GUI;
 import utils.Calculation.ParticleAnalysis;
 import utils.Definition.ColorBGRValue;
 import utils.GUI.AnchorImage;
@@ -30,6 +23,12 @@ import utils.GUI.MainImage;
 import utils.Processing.EdgeDetection;
 import utils.Processing.MatManager;
 import utils.Processing.MorphManager;
+
+import java.io.File;
+import java.util.Arrays;
+
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 public class Save
 {

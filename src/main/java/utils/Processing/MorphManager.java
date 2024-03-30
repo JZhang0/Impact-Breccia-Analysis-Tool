@@ -15,13 +15,13 @@
  */
 package utils.Processing;
 
+import utils.File.FileIO;
+import utils.GUI.MainImage;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
-
-import utils.File.FileIO;
-import utils.GUI.MainImage;
 
 public class MorphManager {
     private static MorphManager MorphManager = null;

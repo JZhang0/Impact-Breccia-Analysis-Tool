@@ -15,12 +15,12 @@
  */
 package utils.Processing;
 
+import utils.File.FileIO;
+import utils.GUI.MainImage;
+
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-
-import utils.File.FileIO;
-import utils.GUI.MainImage;
 
 /*
 * This class defines the behavior for applying a Gaussian blur to an image.

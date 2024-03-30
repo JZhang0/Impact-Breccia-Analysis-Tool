@@ -15,13 +15,22 @@
  */
 package src.main.java.GUI;
 
-import javax.swing.*;
-
 import utils.File.IconLocator;
+import utils.GUI.MainImage;
 
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JDialog;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+
+import java.awt.GridLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class HelpGUI extends JButton
 {
@@ -39,7 +48,11 @@ public class HelpGUI extends JButton
 
 	public static void act()
 	{
-		HelpGUI.launch();
+		if (MainImage.exists() && GUI.canCreateGUI() && true)
+		{
+			HelpGUI.launch();
+			AutomateGUI.launch();
+		}
 	}
 
 	public static void launch()
@@ -75,6 +88,14 @@ public class HelpGUI extends JButton
         for (String keyAction : keyActions) {
             panel.add(new JLabel(keyAction));
         }
+
+		dialog.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				GUI.destroyGUI();
+			}
+		});
 
 		dialog.add(panel);
 		dialog.setSize(300, 800);

@@ -17,7 +17,9 @@ package utils.GUI;
 
 import src.main.java.GUI.GUI;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -15,6 +15,12 @@
  */
 package utils.Processing;
 
+import utils.Calculation.ParticleAnalysis;
+import utils.Definition.ColorBGRValue;
+import utils.File.FileIO;
+import utils.GUI.AnchorImage;
+import utils.GUI.MainImage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +29,6 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-
-import utils.Calculation.ParticleAnalysis;
-import utils.Definition.ColorBGRValue;
-import utils.File.FileIO;
-import utils.GUI.AnchorImage;
-import utils.GUI.MainImage;
 
 public class BackgroundRemoval {
     public static Mat removeBackground(Mat srcImage, Rect resizeRect) {

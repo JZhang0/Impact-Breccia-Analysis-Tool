@@ -15,11 +15,11 @@
  */
 package utils.Processing;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-
 import utils.File.FileIO;
 import utils.GUI.MainImage;
+
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 
 /*
 * This class controls the behaviour for inverting the colour of an image.

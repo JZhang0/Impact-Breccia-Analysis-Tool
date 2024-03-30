@@ -20,8 +20,10 @@ import utils.File.FileIO;
 import utils.GUI.AnchorImage;
 import utils.GUI.MainImage;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JButton;
+
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;

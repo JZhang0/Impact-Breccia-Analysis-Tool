@@ -26,13 +26,11 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;

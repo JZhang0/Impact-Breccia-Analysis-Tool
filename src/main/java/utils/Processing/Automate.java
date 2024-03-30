@@ -15,11 +15,11 @@
  */
 package utils.Processing;
 
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-
 import utils.File.FileIO;
 import utils.GUI.MainImage;
+
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 public class Automate
 {
