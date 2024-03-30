@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <opencv.version>4.9.0-0</opencv.version>
         <javafx.version>21.0.2</javafx.version>
+        <opencsv.version>5.9</opencsv.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,13 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
     </dependencies>
 </project>
