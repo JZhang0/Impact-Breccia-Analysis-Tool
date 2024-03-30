@@ -77,8 +77,6 @@ public class BackgroundRemoval {
         destImage = destImage.submat(max_rect);
         mask = mask.submat(max_rect);
 
-        FileIO.saveFile("sample\\out\\test_mask.png", mask, "png", 9);
-
         MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, destImage.rows(), destImage.cols());
 
         return destImage;

@@ -19,12 +19,17 @@ import java.io.File;
 import java.util.Arrays;
 
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import src.main.java.Settings;
+import src.main.java.GUI.GUI;
 import utils.Calculation.ParticleAnalysis;
+import utils.Definition.ColorBGRValue;
 import utils.GUI.AnchorImage;
 import utils.GUI.MainImage;
+import utils.Processing.EdgeDetection;
 import utils.Processing.MatManager;
+import utils.Processing.MorphManager;
 
 public class Save
 {
@@ -36,8 +41,9 @@ public class Save
 	public static void export(String path, int filetype, Boolean[] analysis_selection)
 	{
 		File folder = new File(FileIO.getFilepath());
+		File Path = new File(path);
 
-        if(folder.exists() && folder.isDirectory()){
+        if(folder.exists() && folder.isDirectory() && Path.exists()){
             for(File f : folder.listFiles()){
 				String fileName = f.getName().substring(0, f.getName().lastIndexOf('.'));
 				Mat img = FileIO.readFile(f.getAbsolutePath());
@@ -60,10 +66,20 @@ public class Save
 						System.out.println("Invalid filetype id given");
 				}
             }
-        }
 
-		if(Arrays.asList(analysis_selection).contains(true) && AnchorImage.isBackgroundRemoved()){
-			generateReport(path, analysis_selection);
-		}
+			if(Arrays.asList(analysis_selection).contains(true) && AnchorImage.isBackgroundRemoved()){
+				generateReport(path, analysis_selection);
+			}
+
+			MorphManager mm = MorphManager.getInstance();
+			MorphManager.updateKernel(Imgproc.MORPH_ELLIPSE, MainImage.getImageWidth(), MainImage.getImageHeight());
+
+			Mat edges = EdgeDetection.autoCannyEdgeDetection(MainImage.getImageMat(), 3, true, ColorBGRValue.BGR_RED);
+			edges = mm.dilation(edges, 1);
+			
+			Mat edge_overlay = MatManager.overlay(AnchorImage.getImageMat(), edges);
+
+			FileIO.saveFile(path + MainImage.getFilename() + "_edge_overlay.png", edge_overlay, "png", 9);
+        }
 	}
 }
