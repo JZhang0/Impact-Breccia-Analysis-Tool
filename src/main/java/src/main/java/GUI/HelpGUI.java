@@ -48,10 +48,10 @@ public class HelpGUI extends JButton
 
 	public static void act()
 	{
-		if (MainImage.exists() && GUI.canCreateGUI() && true)
+		if (MainImage.exists() && GUI.canCreateGUI())
 		{
+			GUI.createGUI();
 			HelpGUI.launch();
-			AutomateGUI.launch();
 		}
 	}
 
