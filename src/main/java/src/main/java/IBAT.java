@@ -1,13 +1,6 @@
 package src.main.java;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.highgui.HighGui;
-
 import src.main.java.GUI.*;
-import utils.File.FileIO;
-
-import java.awt.*;
 
 //Launch the IBAT application
 public class IBAT

@@ -46,15 +46,20 @@ public class ImageDropHandler extends TransferHandler
 			//Insert the file if the user imported a valid file
 			if (file_to_process != null)
 			{
-				History.reset();
+				GUI.changeCursor(2);
+
+				FileIO.resetExportFolder();
+				MainImage.setSplit(false);
+				MainImage.setThreshold(false);
+				AnchorImage.subBacground(false);
 				
 				MainImage.setImage(FileIO.readFile(file_to_process.getAbsolutePath()));
 				MainImage.setFilename(file_to_process.getName().substring(0, file_to_process.getName().lastIndexOf('.')));
-				MainImage.setTimestamp(System.currentTimeMillis());
 
-				// AnchorImage.setImageMat(MainImage.getImageMat());
 				AnchorImage.setImageMat(BackgroundRemoval.subtractBackground());
 				GUI.render(AnchorImage.getImageMat());
+
+				GUI.changeCursor(-1);
 
 				SubBackgroundGUI.act();
 			}

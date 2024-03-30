@@ -21,7 +21,9 @@ public class Automate
 
         contrast_image = Contrast.autoContrast(original_image, 5.0);
 
+		// Three channel gray image
         gray_image = MatManager.RGBtoGray(contrast_image);
+		gray_image = MatManager.GraytoRGB(gray_image);
 
 		MainImage.setSplit(true);
 
@@ -36,7 +38,6 @@ public class Automate
 
         int ksize = 2 * (int) Math.floor((double)threshold_image.cols() / 2000 + (double)threshold_image.rows() / 1000) - 1;
         despeckle_image = BlurFilter.MedianBlur(threshold_image, ksize);
-
 
         morph_image = mm.opening(despeckle_image, 2);
         morph_image = mm.closing(morph_image, 2);

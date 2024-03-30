@@ -8,5 +8,7 @@ module app {
     requires javafx.base;
     requires javafx.controls;
     requires javafx.graphics;
+    requires com.opencsv;
+    requires org.apache.commons.lang3;
     requires transitive opencv;
 }

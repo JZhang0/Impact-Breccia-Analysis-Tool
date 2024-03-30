@@ -59,7 +59,7 @@ public class History
 		if (version_history_index < filenames.size() - 1)
 		{
 			version_history_index++;
-			
+
 			if(grayHistory.get(version_history_index) == true){
 				MainImage.setSplit(true);
 			}
@@ -72,15 +72,7 @@ public class History
 		}
 	}
 
-	public static Mat getOriginalImage()
-	{
-		return FileIO.readFile(FileIO.getFilepath() + filenames.get(History.getExportIndex() - version_history_index));
-	}
-
-	//Add a filename to the history list
-	//If we detect here that we are overwriting a filter, then erase the future history since we're not going with those filters anymore
-	public static void addFilename(String new_filename, boolean isSplit, boolean isThreshold)
-	{
+	public static void saveHistory(){
 		//If we used undo and are now doing a new operation, remove the history after this point
 		for (int i = filenames.size() - 1; i > version_history_index; i--)
 		{
@@ -89,12 +81,18 @@ public class History
 			grayHistory.remove(i);
 			binaryHistory.remove(i);
 		}
+	}
+
+	//Add a filename to the history list
+	//If we detect here that we are overwriting a filter, then erase the future history since we're not going with those filters anymore
+	public static void addFilename(String new_filename, boolean isSplit, boolean isThreshold)
+	{
+		saveHistory();
 
 		//Add the new filtered image to the filter list
 		filenames.add(new_filename);
 		grayHistory.add(isSplit);
 		binaryHistory.add(isThreshold);
-		System.out.println(filenames + " | " + isSplit + " | " + isThreshold);
 
 		version_history_index = filenames.size() - 1;
 	}

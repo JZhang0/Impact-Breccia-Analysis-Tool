@@ -1,5 +1,7 @@
 package src.main.java;
 
+import javafx.scene.shape.Shape;
+
 public class Settings //this is getting replaced with a File with these values stored in it
 {
 	public static boolean LAUNCH_MAXIMIZED = true;
@@ -10,7 +12,8 @@ public class Settings //this is getting replaced with a File with these values s
 	public static String[] CURSORS = new String[] {"cursor_eraser", "cursor_filler", "cursor_wait"};
 	public static double ZOOM_FACTOR = 1.1;
 
-	public static String[] SUPPORTED_FILE_FORMATS = new String[] {"jpg", "png", "tif", "webp", "avif"};
+	public static String[] SUPPORTED_FILE_FORMATS = new String[] {"jpg", "png", "webp", "tif"};
+	public static String[] SUPPORTED_ANALYSIS_TYPES = new String[] {"Moments", "Convex Hull", "Bounding Rectangle", "Enclosing Circle", "Fit Ellipse", "Shape Descriptors", "Feret's Rectangle"};
 
 	public static int THRESHOLD_MIN = 0;
 	public static int THRESHOLD_MAX = 255;

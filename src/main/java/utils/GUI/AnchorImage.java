@@ -7,7 +7,7 @@ public class AnchorImage {
 	private static Mat image;
 
 	//This blocks access to any filters until an image has been imported into the application
-	private static boolean exists = false;
+	private static boolean exists = false, background_subtracted = false;
 
 	//Return the application's image as a Mat
 	public static Mat getImageMat()
@@ -24,5 +24,13 @@ public class AnchorImage {
 	public static boolean exists()
 	{
 		return exists;
+	}
+
+	public static void subBacground(boolean bool){
+		background_subtracted = bool;
+	}
+
+	public static boolean isBackgroundRemoved(){
+		return background_subtracted;
 	}
 }

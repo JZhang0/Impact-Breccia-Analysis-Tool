@@ -1,8 +1,6 @@
 package utils.File;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +9,6 @@ import org.opencv.core.MatOfInt;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import utils.GUI.MainImage;
-
-import java.nio.file.Files;
 
 public class FileIO {
 
@@ -29,7 +25,6 @@ public class FileIO {
         imwriteFlags.put("jpg", Imgcodecs.IMWRITE_JPEG_QUALITY);
         imwriteFlags.put("jpeg", Imgcodecs.IMWRITE_JPEG_QUALITY);
         imwriteFlags.put("webp", Imgcodecs.IMWRITE_WEBP_QUALITY);
-        imwriteFlags.put("avif", Imgcodecs.IMWRITE_AVIF_QUALITY);
 
         /**
          * Second parameter varies from 0 to 9, a higher value means a smaller size and longer compression time.
@@ -122,6 +117,33 @@ public class FileIO {
     //Get the entire filepath that is used to store this image's filter history
     public static String getFilepath()
     {
-        return "Exports\\" + MainImage.getFilename() + "_" + MainImage.getTimestamp() + "\\";
+        return "Exports\\";
+    }
+
+    public static void resetExportFolder(){
+        File folder = new File(getFilepath());
+        if (!folder.exists())
+        {
+            folder.mkdirs();
+        }
+        else if(folder.exists() && folder.isDirectory()){
+            for(File f : folder.listFiles()){
+                f.delete();
+            }
+        }
+
+        History.reset();
+    }
+
+    public static void deleteExportFolder(){
+        File folder = new File(getFilepath());
+
+        if(folder.exists() && folder.isDirectory()){
+            for(File f : folder.listFiles()){
+                f.delete();
+            }
+        }
+
+        folder.delete();
     }
 }

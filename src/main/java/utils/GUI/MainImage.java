@@ -15,9 +15,6 @@ public class MainImage
 	//The filename of the image
 	private static String filename = "";
 
-	//The timestamp of when the image was first imported into the application
-	private static long timestamp = 0;
-
 	//The image itself
 	private static Mat image;
 
@@ -98,17 +95,5 @@ public class MainImage
 	public static void setFilename(String new_filename)
 	{
 		filename = new_filename;
-	}
-
-	//Get the timestamp of when the image was imported into the application
-	public static long getTimestamp()
-	{
-		return timestamp;
-	}
-
-	//Set the image's timestamp
-	public static void setTimestamp(long new_timestamp)
-	{
-		timestamp = new_timestamp;
 	}
 }
