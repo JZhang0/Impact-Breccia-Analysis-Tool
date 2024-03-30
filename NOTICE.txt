@@ -1,2 +1,11 @@
-Mouse cursor "cursor_eraser" and "cursor_filler" by Troy at: http://www.rw-designer.com/cursor-set/arrow-ball-set
-Mouse cursor "cursor_wait" by Vlasta at: http://www.rw-designer.com/cursor-set/antialiased-classic
+Impact-Breccia-Analysis-Tool(IBAT)
+Copyright (C) 2024 Yifei Zhang, Nicolas Louis Jacobs, Yuhan Zhang - All Rights Reserved
+
+This product includes framework developed at
+Open Source Computer Vision Library (https://opencv.org/).
+
+The Mouse cursor image "cursor_eraser" and "cursor_filler" in icons/
+was created by Troy at: http://www.rw-designer.com/cursor-set/arrow-ball-set
+
+The Mouse cursor "cursor_wait" in icons/
+was created by Vlasta at: http://www.rw-designer.com/cursor-set/antialiased-classic
