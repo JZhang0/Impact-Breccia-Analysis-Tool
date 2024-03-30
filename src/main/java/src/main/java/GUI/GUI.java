@@ -56,6 +56,7 @@ public class GUI extends javax.swing.JFrame
     private static JFrame frame;
     private static JPanel buttonPanel;
     private static JPanel mainPanel;
+    private static JLabel drop_image_label;
     private static Image current_image = null;
 
     private static double render_scale = 0.0;
@@ -214,14 +215,14 @@ public class GUI extends javax.swing.JFrame
                     //Render the image to the screen
                     g2d.drawImage(current_image, x + Pan.getX(), y + Pan.getY(), scaled_width, scaled_height, null);
                 }
-                else
+                else if(drop_image_label == null)
                 {
                     // Display a JLabel if the image is null
-                    JLabel label = new JLabel("Drop image here");
-                    label.setHorizontalAlignment(SwingConstants.CENTER);
-                    label.setVerticalAlignment(SwingConstants.CENTER);
-                    label.setBounds(0, 0, getWidth(), getHeight());
-                    add(label);
+                    drop_image_label = new JLabel("Drop image here");
+                    drop_image_label.setHorizontalAlignment(SwingConstants.CENTER);
+                    drop_image_label.setVerticalAlignment(SwingConstants.CENTER);
+                    drop_image_label.setBounds(0, 0, getWidth(), getHeight());
+                    add(drop_image_label);
                 }
             }
         };
