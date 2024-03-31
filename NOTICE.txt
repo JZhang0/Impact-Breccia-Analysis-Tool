@@ -1,5 +1,5 @@
 Impact-Breccia-Analysis-Tool(IBAT)
-Copyright (C) 2024 Yifei Zhang, Nicolas Louis Jacobs, Yuhan Zhang - All Rights Reserved
+Copyright (C) 2024 Yifei Zhang, Nicolas Jacobs, Yuhan Zhang - All Rights Reserved
 
 This product includes framework developed at
 Open Source Computer Vision Library (https://opencv.org/).
@@ -9,3 +9,39 @@ was created by Troy at: http://www.rw-designer.com/cursor-set/arrow-ball-set
 
 The Mouse cursor "cursor_wait" in icons/
 was created by Vlasta at: http://www.rw-designer.com/cursor-set/antialiased-classic
+
+The atom "auto" in icons/
+is sourced from https://juniortech.org/introduction-to-basic-computer-algorithms/algorithm-icon-1200x450px/
+
+The flowers "contrast" in icons/
+is sourced from https://www.gardeningknowhow.com/ornamental/flowers/zinnia/zinnia-plant-varieties.htm
+
+The night sky "despeckle" in icons/
+is sourced from https://twitter.com/StarWalk/status/1207699742899224580
+
+The eraser "eraser" in icons/
+is sourced from https://thenounproject.com/icon/eraser-1072358/
+
+The sparkles "eraser" in icons/
+is sourced from https://iconduck.com/icons/8472/magic
+
+The paint bucket "filler" in icons/
+is sourced from https://www.cleanpng.com/png-yellow-paint-bucket-black-tool-tools-and-utensils-6731842/
+
+Mt Fuji "gauss" in icons/
+is sourced from https://en.wikipedia.org/wiki/Mount_Fuji
+
+The help icon "help" in icons/
+is sourced from https://www.istockphoto.com/vector/question-mark-outline-isolated-vector-gm827452632-134689725
+
+The album cover "invert" in icons/
+is sourced from Heroes by David Bowie
+
+The greyscale "threshold" in icons/
+is sourced from https://www.lightroomqueen.com/community/threads/21-step-grayscale.12374/
+
+The zoom icon "zoom_in" and "zoom_out" in icons/
+is sourced from https://www.vecteezy.com/vector-art/1505025-zoom-in-icon
+
+The save icon "save" in icons/
+is sourced from https://www.flaticon.com/free-icon/floppy-disk_483134

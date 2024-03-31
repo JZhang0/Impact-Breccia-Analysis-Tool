@@ -81,7 +81,7 @@ public class HelpGUI extends JButton
             "Minus: ZOOM OUT",
             "Equals: ZOOM IN",
             "0: RESET PAN AND ZOOM",
-			"Created by: Yifei Zhang, Nicolas Louis Jacobs, Yuhan Zhang",
+			"Created by: Yifei Zhang, Nicolas Jacobs, Yuhan Zhang",
         };
 
         for (String keyAction : keyActions) {
