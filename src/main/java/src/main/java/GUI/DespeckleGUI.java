@@ -146,7 +146,11 @@ public class DespeckleGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(BlurFilter.addMedian(despeckle_adjustment_value));
+
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });

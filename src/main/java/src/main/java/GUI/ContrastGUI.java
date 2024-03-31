@@ -193,7 +193,11 @@ public class ContrastGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(Contrast.adjustConstrast(contrast_adjustment_value_alpha, contrast_adjustment_value_beta, contrast_adjustment_value_gamma));
+
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });
@@ -205,7 +209,11 @@ public class ContrastGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(Contrast.adjustConstrast(contrast_adjustment_value_alpha, contrast_adjustment_value_beta, contrast_adjustment_value_gamma));
+
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });
@@ -226,7 +234,11 @@ public class ContrastGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(Contrast.adjustConstrast(contrast_adjustment_value_alpha, contrast_adjustment_value_beta, contrast_adjustment_value_gamma));
+
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });

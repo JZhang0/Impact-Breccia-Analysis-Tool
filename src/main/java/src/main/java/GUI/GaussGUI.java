@@ -146,7 +146,11 @@ public class GaussGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(BlurFilter.addGauss(gauss_adjustment_value));
+
+					GUI.changeComponentCursor(2, dialog);
 				}
 			}
         });

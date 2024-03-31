@@ -140,7 +140,11 @@ public class ThresholdGUI extends JButton
 
 				JSlider source = (JSlider) e.getSource();
 				if(!source.getValueIsAdjusting() && !getSetting){
+					GUI.changeComponentCursor(2, dialog);
+
 					GUI.render(Thresholding.adjustThreshold(threshold_adjustment_value));
+
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });
