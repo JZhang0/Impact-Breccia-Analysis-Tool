@@ -150,7 +150,7 @@ public class GaussGUI extends JButton
 
 					GUI.render(BlurFilter.addGauss(gauss_adjustment_value));
 
-					GUI.changeComponentCursor(2, dialog);
+					GUI.changeComponentCursor(-1, dialog);
 				}
 			}
         });
